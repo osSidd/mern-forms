@@ -1,0 +1,7 @@
+input, textarea{
+    @apply w-full border border-gray-300 rounded-md;
+}
+
+button{
+    @apply border border-teal-400 rounded-md ;
+}
