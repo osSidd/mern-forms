@@ -15,7 +15,7 @@ export default function Comprehension(){
         ques:[quesObj],
     }
 
-    const [questions, setQuestions] = useState([{text: '', ques: [quesObj]}])
+    const [questions, setQuestions] = useState([{text: '', ques: [{text: '', a:'', b:'', c:'', d:''}]}])
 
     function addQuestion(e){
         const id = e.target.id
@@ -58,6 +58,21 @@ export default function Comprehension(){
         })
     }
 
+    function removeQuestion(e){
+        const id = e.target.id
+        setQuestions(prev => prev.filter(item => prev.indexOf(item) !== parseInt(id)))
+    }
+
+    function removeMcq(e){
+        const {dataset} = e.target
+        const id = parseInt(dataset.id)
+        const index = parseInt(dataset.index)
+        setQuestions(prev => prev.map(item => ({
+            ...item,
+            ques: prev.indexOf(item) === index ? item.ques.filter(q => item.ques.indexOf(q) !== id) : item.ques
+        })))
+    }
+
     return(
         <div className="my-24 px-32 py-8 rounded-lg">
             <h2 className="text-2xl font-semibold">Comprehension</h2>
@@ -80,10 +95,17 @@ export default function Comprehension(){
                             ></textarea>
                             <span
                                 onClick={addPassage}
-                                className="-mt-3 ml-8 text-4xl text-gray-500 cursor-pointer"
+                                className="-mt-3 ml-8 text-4xl text-gray-500 cursor-pointer"                                
                             >
                                 &#43;
-                            </span>    
+                            </span>
+                            {index>0 && <span
+                                id={index}
+                                className="ml-8 text-4xl text-red-500 -mt-3 cursor-pointer"
+                                onClick={removeQuestion}
+                            >
+                                &#215;
+                            </span>}    
                         </div>
                         
                         <div>
@@ -112,12 +134,14 @@ export default function Comprehension(){
                                                 >
                                                     &#43;
                                                 </span>
-                                                <span
-                                                    id={index}
-                                                    className="ml-8 text-4xl text-red-500 -mt-4"
+                                                {id>0 && <span
+                                                    data-index={index}
+                                                    data-id={id}
+                                                    onClick={removeMcq}
+                                                    className="ml-8 text-4xl text-red-500 -mt-4 cursor-pointer"
                                                 >
                                                     &#215;
-                                                </span>
+                                                </span>}
                                             </div>
                                            <div className="grid grid-cols-2 gap-4">
                                                 <input 

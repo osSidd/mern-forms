@@ -1,7 +1,4 @@
 import { useState } from 'react'
-import Input from './input'
-import Select from './select'
-
 
 export default function Categorize(){
 
@@ -39,12 +36,14 @@ export default function Categorize(){
         })
     }
 
-    function addCategory(e){
-        const id = e.target.id
+    function addInput(e){
+        const {id, dataset} = e.target
+        const field = dataset.field
+        const obj = field === 'categories' ? categoryObj : itemObj
         setCategories(prev => {
             return prev.map(item => ({
               ...item,
-              categories: prev.indexOf(item) === parseInt(id) ? [...item.categories, categoryObj] : item.categories
+              [field]: prev.indexOf(item) === parseInt(id) ? [...item[field], obj] : item[field]
             }))
         })
     }
@@ -71,14 +70,28 @@ export default function Categorize(){
         })
     }
 
-    function addItem(e){
+    function removeQuestion(e){
         const id = e.target.id
+        setCategories(prev => prev.filter(item => prev.indexOf(item) !== parseInt(id)))
+    }
+
+    function removeField(e){
+        const {dataset} = e.target
+        const id = parseInt(dataset.id)
+        const index = parseInt(dataset.index)
+        const field = dataset.field
+        console.log(id, index, field, dataset)
         setCategories(prev => {
             return prev.map(item => ({
                 ...item,
-                items: prev.indexOf(item) === parseInt(id) ? [...item.items, itemObj] : item.items
+                [field]: prev.indexOf(item) === id ? filterField(item[field], index) : item 
+
             }))
         })
+    }
+
+    function filterField(arr, index){
+        return arr.filter(item => arr.indexOf(item) !== index)
     }
 
     console.log(categories)
@@ -89,7 +102,7 @@ export default function Categorize(){
                 categories.map(cat => {
                     const id = categories.indexOf(cat)
                     return (
-                        <div className='mb-16'>
+                        <div className='mb-16' key={id}>
                             <div className='flex items-center mb-4'>
                                 <input 
                                     type="text" 
@@ -106,14 +119,22 @@ export default function Categorize(){
                                 >
                                     &#43;
                                 </span>
+                                {id > 0 && <span
+                                    id={id} 
+                                    className='text-red-500 text-4xl -mt-1 ml-8 cursor-pointer' 
+                                    onClick={removeQuestion}
+                                >
+                                    &#215;
+                                </span>}
                             </div>
                             <div className='mt-4 mb-4'>
                                 <div className='flex items-center mb-4'>
                                     <h3 className='text-lg '>Categories</h3>
                                     <span
                                         id={id}
+                                        data-field='categories'
                                         className='text-gray-500 text-4xl -mt-1 ml-8 cursor-pointer' 
-                                        onClick={addCategory}
+                                        onClick={addInput}
                                     >
                                         &#43;
                                     </span>
@@ -122,7 +143,7 @@ export default function Categorize(){
                                     cat.categories.map(category => {
                                         const index = cat.categories.indexOf(category)
                                         return (
-                                            <div className='flex items-center mb-4'>
+                                            <div className='flex items-center mb-4' key={index}>
                                                 <input 
                                                     type="text" 
                                                     name="name" 
@@ -135,12 +156,15 @@ export default function Categorize(){
                                                     onChange={handleFieldChange}
                                                     className='border border-gray-400 p-2 w-6/12' 
                                                 />
-                                                <span 
+                                                {index > 0 && <span 
                                                     className='text-red-500 text-4xl -mt-1 ml-8 cursor-pointer' 
-                                                    
+                                                    data-id={id}
+                                                    data-index={index}
+                                                    data-field='categories'
+                                                    onClick={removeField}
                                                 >
                                                     &#215;
-                                                </span>
+                                                </span>}
                                             </div>
                                         )
                                     })
@@ -149,8 +173,9 @@ export default function Categorize(){
                                     <h3 className='text-lg '>Items</h3>
                                     <span
                                         id={id}
+                                        data-field='items'
                                         className='text-gray-500 text-4xl -mt-1 ml-8 cursor-pointer' 
-                                        onClick={addItem}
+                                        onClick={addInput}
                                     >
                                         &#43;
                                     </span>
@@ -160,7 +185,7 @@ export default function Categorize(){
                                     cat.items.map(item => {
                                         const itemId = cat.items.indexOf(item)
                                         return (
-                                            <div className='flex items-center mb-4'>
+                                            <div className='flex items-center mb-4' key={itemId}>
                                                 <input 
                                                     type="text"
                                                     name='item'
@@ -173,11 +198,15 @@ export default function Categorize(){
                                                     onChange={handleFieldChange}
                                                     className='border border-gray-400 p-2 w-4/12' 
                                                 />
-                                                <span
+                                                {itemId > 0 && <span
+                                                    data-id={id}
+                                                    data-index={itemId}
+                                                    data-field='items'
+                                                    onClick={removeField}
                                                     className='text-red-500 text-4xl -mt-1 ml-8 cursor-pointer' 
                                                 >
                                                     &#215;
-                                                </span>
+                                                </span>}
                                                 <select
                                                     className='ml-auto rounded-md border border-gray-400 p-2 w-4/12'
                                                     value={item.belongsTo}
@@ -190,7 +219,7 @@ export default function Categorize(){
                                                     <option disabled>Select item</option>
                                                     {
                                                         cat.categories.map(item => (
-                                                            <option>{item.name}</option>
+                                                            <option key={itemId}>{item.name}</option>
                                                         ))
                                                     }
                                                 </select>
