@@ -1,121 +1,47 @@
-import { useState } from "react"
+import {v4 as uuid} from 'uuid'
+import Icon from "./icon"
 
-export default function Comprehension(){
+export default function Comprehension({comprehension}){
 
-    const quesObj = {            
-        text: '',
-        a:'',
-        b:'',
-        c:'',
-        d:'',
-    }
-
-    const textObj = {
-        text: '',
-        ques:[quesObj],
-    }
-
-    const [questions, setQuestions] = useState([{text: '', ques: [{text: '', a:'', b:'', c:'', d:''}]}])
-
-    function addQuestion(e){
-        const id = e.target.id
-        setQuestions(prev => {
-            return prev.map(item => {
-                return parseInt(prev.indexOf(item)) === parseInt(id) ?  {...item, ques: [...item.ques, quesObj]} : item
-            })
-        })
-    }
-
-    function addPassage(e){
-        setQuestions(prev => ([...prev, textObj]))
-    }
-
-    function handlePassage(e){
-        const {id, value} = e.target
-        setQuestions(prev => {
-            return prev.map(item => {
-                return prev.indexOf(item) === parseInt(id) ? {...item, text: value} : item
-            })
-        })
-    }
-
-    function handleChange(e){
-        setQuestions(prev => {
-            return mapPrev(prev, e)
-        })
-    }
-
-    function mapPrev(prev, e){
-        return prev.map(item => {
-            return prev.indexOf(item) === parseInt(e.target.dataset.index) ? {...item, ques: mapQues(item.ques, e)} : item
-        })
-    }
-
-    function mapQues(ques, e){
-        const {name, value, dataset} = e.target 
-        return ques.map(item => {
-            return ques.indexOf(item) === parseInt(dataset.id) ? {...item, [name] : value} : item
-        })
-    }
-
-    function removeQuestion(e){
-        const id = e.target.id
-        setQuestions(prev => prev.filter(item => prev.indexOf(item) !== parseInt(id)))
-    }
-
-    function removeMcq(e){
-        const {dataset} = e.target
-        const id = parseInt(dataset.id)
-        const index = parseInt(dataset.index)
-        setQuestions(prev => prev.map(item => ({
-            ...item,
-            ques: prev.indexOf(item) === index ? item.ques.filter(q => item.ques.indexOf(q) !== id) : item.ques
-        })))
-    }
+    const {
+        comprehensionQues,
+        addComprehensionQuestions,
+        removeComprehensionQuestion,
+        addMcq,
+        removeMcq,
+    } = comprehension
 
     return(
         <div className="my-24 px-32 py-8 rounded-lg">
             <h2 className="text-2xl font-semibold">Comprehension</h2>
             {
-                questions.map(passage => {
-
-                    const index = questions.indexOf(passage)
+                comprehensionQues.map((passage, index) => {
 
                     return (
-                    <div key={index} className="my-8">
+                    <div key={uuid()} className="my-8">
                         <div className="flex items-start">
                             <textarea 
                                 className="p-2" 
                                 rows={6} 
-                                id={questions.indexOf(passage)} 
+                                id={index} 
                                 name='text' 
                                 placeholder='Enter comprehension passage' 
                                 value= {passage.text} 
-                                onChange={handlePassage}
+                                onChange={undefined}
                             ></textarea>
-                            <span
-                                onClick={addPassage}
-                                className="-mt-3 ml-8 text-4xl text-gray-500 cursor-pointer"                                
-                            >
-                                &#43;
-                            </span>
-                            {index>0 && <span
-                                id={index}
-                                className="ml-8 text-4xl text-red-500 -mt-3 cursor-pointer"
-                                onClick={removeQuestion}
-                            >
-                                &#215;
-                            </span>}    
+                            <Icon
+                                handleClick={addComprehensionQuestions}
+                                icon='&#43;'
+                            />
+                            {index > 0 && <Icon id={index} handleClick={() => removeComprehensionQuestion(index)} icon='&#215;' color='red'/>}    
                         </div>
                         
                         <div>
                             {
-                                passage.ques.map(item => {
-
-                                    let id = passage.ques.indexOf(item)
+                                passage.ques.map((item, id) => {
 
                                     return (
-                                        <div key={id}>
+                                        <div key={uuid()}>
                                             <div className="flex items-center mb-5 mt-6">
                                                 <input 
                                                     className="p-2" 
@@ -124,20 +50,18 @@ export default function Comprehension(){
                                                     data-id={id} 
                                                     data-index={index} 
                                                     value={item.text} 
-                                                    onChange={handleChange}
+                                                    onChange={undefined}
                                                     placeholder="Enter comprehension question"
                                                 />
-                                                 <span
+                                                <Icon
                                                     id={index}
-                                                    onClick={addQuestion}
-                                                    className="ml-8 text-4xl text-gray-500 -mt-4 cursor-pointer"
-                                                >
-                                                    &#43;
-                                                </span>
+                                                    handleClick={() => addMcq(index)}
+                                                    icon='&#43;'
+                                                />
                                                 {id>0 && <span
                                                     data-index={index}
                                                     data-id={id}
-                                                    onClick={removeMcq}
+                                                    onClick={() => removeMcq(index, id)}
                                                     className="ml-8 text-4xl text-red-500 -mt-4 cursor-pointer"
                                                 >
                                                     &#215;
@@ -151,7 +75,7 @@ export default function Comprehension(){
                                                     data-id={id} 
                                                     data-index={index} 
                                                     value={item.a} 
-                                                    onChange={handleChange}
+                                                    onChange={undefined}
                                                     placeholder="Option a"
                                                 />
                                                 <input 
@@ -161,7 +85,7 @@ export default function Comprehension(){
                                                     data-id={id} 
                                                     data-index={index} 
                                                     value={item.b} 
-                                                    onChange={handleChange}
+                                                    onChange={undefined}
                                                     placeholder="Option b"
                                                 />
                                                 <input 
@@ -171,7 +95,7 @@ export default function Comprehension(){
                                                     data-id={id} 
                                                     data-index={index} 
                                                     value={item.c} 
-                                                    onChange={handleChange}
+                                                    onChange={undefined}
                                                     placeholder="Option c"
                                                 />
                                                 <input 
@@ -181,7 +105,7 @@ export default function Comprehension(){
                                                     data-id={id} 
                                                     data-index={index} 
                                                     value={item.d} 
-                                                    onChange={handleChange}
+                                                    onChange={undefined}
                                                     placeholder="Option d"
                                                 />
                                            </div>
