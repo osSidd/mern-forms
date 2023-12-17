@@ -29,23 +29,42 @@ function removeField(arr, arrayId, field, fieldId){
     })
 }
 
+function handleInput(e, arr,  arrayId, field, fId, fKey){
+    const {value} = e.target
+    const qId = parseInt(arrayId)
+    const fieldId = parseInt(fId)
+    
+    if(field){
+        return arr.map((ques, quesId) => {
+            if(quesId !== qId ) return ques
+            
+            return {
+                ...ques,
+                [field] : mapField(ques[field], fieldId, value, fKey)
+            }
+        })
+    }
 
-
-function filterField(arr, index){
-    return arr.filter(item => arr.indexOf(item) !== index)
+    return arr.map((ques) => ({...ques, question: qId === ques.id ? value : ques.question}))
 }
 
-function mapField(index, arr, value, key){
-    return arr.map(item => {
-        return arr.indexOf(item) === index ? {...item, [key]: value} : item
+function mapField(arr, index, value, key){
+    return arr.map((item, id) => {
+        return id === index ? {...item, [key]: value} : item
     })
 }
 
+// /////////////////
+// function filterField(arr, index){
+//     return arr.filter(item => arr.indexOf(item) !== index)
+// }
+
+
+
 export {
-    filterField,
-    mapField,
     addQuestion,
     removeQuestion,
     addField,
     removeField,
+    handleInput,
 }

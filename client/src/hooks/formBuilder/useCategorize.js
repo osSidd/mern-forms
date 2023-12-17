@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { addField, addQuestion, removeField, removeQuestion } from "../../utils/functions";
+import { useState } from "react";
+import { addField, addQuestion, handleInput, removeField, removeQuestion } from "../../utils/functions";
 import { categorizeObj } from "../../utils/formBuilderUtils";
 
 export default function useBuilder(){
@@ -12,10 +12,6 @@ export default function useBuilder(){
         items: [{name: '', belongsTo: ''}],
     }])
     
-    const questionRef = useRef([])
-    const categoryRef = useRef([{categories: []}])
-    const itemRef = useRef([{items: []}])
-
     //add categoize question
     function addCategorizeQues(){
         setCategorizeQues(prev => addQuestion(prev, categorizeObj.question))
@@ -55,16 +51,19 @@ export default function useBuilder(){
         setCategorizeQues(prev => removeField(prev, quesId, 'items', itemId))
     }
 
+    //handle input
+    function handleInputChange(e, qId, field, fId, fKey){
+        setCategorizeQues(prev => handleInput(e, prev, qId, field, fId, fKey))
+    }
+
     return {
             categorizeQues,
-            questionRef,
-            categoryRef,
-            itemRef,
             addCategorizeQues,
             removeCategorizeQues,
             addCategory,
             removeCategory,
             addItem,
             removeItem,
+            handleInputChange,
     }
 }

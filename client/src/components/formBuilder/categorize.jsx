@@ -2,33 +2,26 @@ import Input from './input'
 import Select from './select'
 import Icon from './icon'
 
-import {v4 as uuid} from 'uuid'
-import { useRef } from 'react'
-
 export default function Categorize({categorize}){
     const {
         categorizeQues,
-        questionRef,
-        categoryRef,
-        itemRef,
         addCategorizeQues,
         removeCategorizeQues,
         addCategory,
         removeCategory,
         addItem,
         removeItem,
+        handleInputChange,
     } = categorize
-    
-    console.log(questionRef, categoryRef, itemRef)
-    
+        
     return (
         <div className='my-24 px-32 py-8 rounded-lg'>
             <h2 className='text-2xl font-semibold mb-8'>Categorize</h2>
             
             {
-                categorizeQues.map((cat, qId) => {            
+                categorizeQues.map((cat, qId) => {   
                     return (
-                        <div className='mb-16' key={uuid()}>
+                        <div className='mb-16' key={cat.id}>
                             
                             <div className='flex items-center mb-4'>
                                 
@@ -38,7 +31,8 @@ export default function Categorize({categorize}){
                                     className='p-2'
                                     placeholder='Categorize the following' 
                                     id={qId}
-                                    ref={e => { questionRef.current[qId] = e}}
+                                    value={cat.question}
+                                    onChange={e => handleInputChange(e, qId, null, null, null)}
                                 />
                                 
                                 <Icon handleClick={addCategorizeQues} icon='&#43;'/>
@@ -52,8 +46,6 @@ export default function Categorize({categorize}){
                                 <div className='flex items-center mb-4'>
                                     <SubHeading title='Categories' />
                                     <Icon
-                                        id={qId}
-                                        field='categories'
                                         handleClick={() => addCategory(qId)}
                                         icon='&#43;'
                                     />
@@ -61,17 +53,13 @@ export default function Categorize({categorize}){
                                 
                                 {
                                     cat.categories?.map((category, catId) => {
-                                                                              
                                         return (
-                                            <div className='flex items-center mb-4' key={uuid()}>
+                                            <div className='flex items-center mb-4' key={`${qId}-${catId}`}>
                                                 <Input
-                                                    name='name'
+                                                    name='category'
                                                     placeholder='Category'
-                                                    qId={qId}
-                                                    itemId={catId}
-                                                    field='categories'
-                                                    keyVal='name'
-                                                    refe={categoryRef}
+                                                    val={category.name}
+                                                    onChange={e => handleInputChange(e, qId, 'categories', catId, 'name')}
                                                     remove={() => removeCategory(qId, catId)}
                                                 />
                                             </div>
@@ -82,8 +70,6 @@ export default function Categorize({categorize}){
                                 <div className='flex items-center mt-4 mb-4'>
                                     <SubHeading title='Items' />
                                     <Icon
-                                        id={qId}
-                                        field='items'
                                         handleClick={() => addItem(qId)}
                                         icon='&#43;'
                                     />
@@ -92,27 +78,19 @@ export default function Categorize({categorize}){
                                 
                                 {
                                     cat.items?.map((item, itemId) => {
-                                                                              
                                         return (
-                                            <div className='flex items-center mb-4' key={uuid()}>
+                                            <div className='flex items-center mb-4' key={`${qId}-${itemId}`}>
                                                 <Input
-                                                    name='name'
+                                                    name='item'
                                                     placeholder='Item'
-                                                    qId={qId}
-                                                    itemId={itemId}
-                                                    field='items'
-                                                    keyVal='name'
-                                                    refe={itemRef}
+                                                    val={item.name}
+                                                    onChange={e => handleInputChange(e, qId, 'items', itemId, 'name')}
                                                     remove={() => removeItem(qId, itemId)}
                                                 />
                                                 <Select
                                                     val={item.belongsTo}
-                                                    qId={qId}
-                                                    itemId={itemId}
-                                                    field='items'
-                                                    keyVal='belongsTo'
-                                                    handleChange={undefined}
-                                                    arr={categoryRef.current}
+                                                    onChange={e => handleInputChange(e, qId, 'items', itemId, 'belongsTo')}
+                                                    arr={cat.categories}
                                                 />
                                             </div>
                                         )

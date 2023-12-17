@@ -1,19 +1,13 @@
-export default function Input({name, placeholder, qId, itemId, field, refe, remove}){
+export default function Input({name, placeholder, itemId, remove,val, onChange}){
    
     return (
         <>
             <input 
                 type="text"
                 name={name}
-                defaultValue={refe.current?.[qId]?.[field]?.[itemId]?.value}
-                id={`${qId}-${field}-${itemId}`}
                 placeholder={placeholder}
-                ref={el => { 
-                    if(refe.current[qId]) 
-                        refe.current[qId][field][itemId] = el; 
-                    else 
-                        refe.current[qId] = {[field]: [el]}
-                }}
+                value={val}
+                onChange={onChange}
                 className='border border-gray-400 p-2 w-4/12' 
             />
             {itemId > 0 && 
