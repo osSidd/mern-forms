@@ -3,13 +3,14 @@ import Select from './select'
 import Icon from './icon'
 
 import {v4 as uuid} from 'uuid'
-import { categorizeObj } from '../../utils/formBuilderUtils'
+import { useRef } from 'react'
 
 export default function Categorize({categorize}){
     const {
         categorizeQues,
         questionRef,
-        // categoryRef,
+        categoryRef,
+        itemRef,
         addCategorizeQues,
         removeCategorizeQues,
         addCategory,
@@ -17,8 +18,9 @@ export default function Categorize({categorize}){
         addItem,
         removeItem,
     } = categorize
-    // console.log(questionRef)
-    console.log(categorizeQues, questionRef)
+    
+    console.log(questionRef, categoryRef, itemRef)
+    
     return (
         <div className='my-24 px-32 py-8 rounded-lg'>
             <h2 className='text-2xl font-semibold mb-8'>Categorize</h2>
@@ -36,7 +38,7 @@ export default function Categorize({categorize}){
                                     className='p-2'
                                     placeholder='Categorize the following' 
                                     id={qId}
-                                    ref={e => questionRef.current[qId] = {...categorizeObj.question, question: e, id: qId}}
+                                    ref={e => { questionRef.current[qId] = e}}
                                 />
                                 
                                 <Icon handleClick={addCategorizeQues} icon='&#43;'/>
@@ -69,7 +71,7 @@ export default function Categorize({categorize}){
                                                     itemId={catId}
                                                     field='categories'
                                                     keyVal='name'
-                                                    // ref={questionRef}
+                                                    refe={categoryRef}
                                                     remove={() => removeCategory(qId, catId)}
                                                 />
                                             </div>
@@ -100,7 +102,7 @@ export default function Categorize({categorize}){
                                                     itemId={itemId}
                                                     field='items'
                                                     keyVal='name'
-                                                    // ref={questionRef}
+                                                    refe={itemRef}
                                                     remove={() => removeItem(qId, itemId)}
                                                 />
                                                 <Select
@@ -110,7 +112,7 @@ export default function Categorize({categorize}){
                                                     field='items'
                                                     keyVal='belongsTo'
                                                     handleChange={undefined}
-                                                    arr={cat.categories}
+                                                    arr={categoryRef.current}
                                                 />
                                             </div>
                                         )

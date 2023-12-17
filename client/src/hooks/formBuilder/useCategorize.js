@@ -11,9 +11,10 @@ export default function useBuilder(){
         categories: [{name: ''}],
         items: [{name: '', belongsTo: ''}],
     }])
-
-    const questionRef = useRef([{}])
-    // const categoryRef = useRef([categorizeObj.categories])
+    
+    const questionRef = useRef([])
+    const categoryRef = useRef([{categories: []}])
+    const itemRef = useRef([{items: []}])
 
     //add categoize question
     function addCategorizeQues(){
@@ -57,7 +58,8 @@ export default function useBuilder(){
     return {
             categorizeQues,
             questionRef,
-            // categoryRef,
+            categoryRef,
+            itemRef,
             addCategorizeQues,
             removeCategorizeQues,
             addCategory,
