@@ -1,4 +1,4 @@
-export default function Input({name, placeholder, itemId, remove,val, onChange}){
+export default function Input({name, placeholder, val, onChange}){
    
     return (
         <>
@@ -10,13 +10,6 @@ export default function Input({name, placeholder, itemId, remove,val, onChange})
                 onChange={onChange}
                 className='border border-gray-400 p-2 w-4/12' 
             />
-            {itemId > 0 && 
-            <span
-                onClick={remove}
-                className='text-red-500 text-4xl -mt-1 ml-8 cursor-pointer' 
-            >
-                &#215;
-            </span>}
         </>
     )
 }

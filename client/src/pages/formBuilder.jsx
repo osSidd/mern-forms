@@ -4,22 +4,16 @@ import Comprehension from "../components/formBuilder/comprehension";
 
 import useCategorize from "../hooks/formBuilder/useCategorize";
 // import useCloze from "../hooks/formBuilder/useCloze";
-// import useComprehension from "../hooks/formBuilder/useComprehension";
+import useComprehension from "../hooks/formBuilder/useComprehension";
 
 export default function FormBuilder(){
 
     const categorize = useCategorize()
     // const cloze = useCloze()
-    // const comprehension = useComprehension()
-
-    function getValues(arr, field=null){
-        if(field) return getValues(arr[field])
-        return arr.map((i, index) => ({[index]: i.value}))
-    }
+    const comprehension = useComprehension()
 
     function submitForm(){
-        const {questionRef, categoryRef, optionRef, itemRef} = categorize
-        console.log(questionRef.current, categoryRef, itemRef, optionRef)
+        console.log(categorize.categorizeQues)
     }
 
     return (
@@ -30,10 +24,10 @@ export default function FormBuilder(){
             />
             {/* <Cloze
                 cloze={cloze}
-            />
+            /> */}
             <Comprehension
                 comprehension={comprehension}
-            /> */}
+            />
             <button onClick={submitForm} className='bg-orange-200 py-2 px-4'>Submit</button>
         </div>
     )

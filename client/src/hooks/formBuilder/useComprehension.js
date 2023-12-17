@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 
-import { addField, addQuestion, removeQuestion, removeField } from "../../utils/functions"
+import { addField, addQuestion, removeQuestion, removeField, handleInput } from "../../utils/functions"
 import { comprehensionObj } from "../../utils/formBuilderUtils"
 
 export default function useComprehension(){
@@ -15,6 +15,8 @@ export default function useComprehension(){
             c:'', 
             d:''}]
     }])
+
+    const passageRef = useRef({})
     
     //add a comprehension question
     function addComprehensionQuestions(){
@@ -41,11 +43,18 @@ export default function useComprehension(){
         setComprehensionQues(prev => removeField(prev, quesId, 'ques', mcqId))
     }
 
+    //handle input
+    function handleInputChange(e, qId, field, fId, fKey){
+        setComprehensionQues(prev => handleInput(e, prev, qId, field, fId, fKey))
+    }
+
     return {
         comprehensionQues,
+        passageRef,
         addComprehensionQuestions,
         removeComprehensionQuestion,
         addMcq,
         removeMcq,
+        handleInputChange,
     }
 }

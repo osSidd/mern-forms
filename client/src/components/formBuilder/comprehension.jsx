@@ -1,14 +1,16 @@
-import {v4 as uuid} from 'uuid'
 import Icon from "./icon"
+import Input from './input'
 
 export default function Comprehension({comprehension}){
 
     const {
         comprehensionQues,
+        passageRef,
         addComprehensionQuestions,
         removeComprehensionQuestion,
         addMcq,
         removeMcq,
+        handleInputChange,
     } = comprehension
 
     return(
@@ -16,9 +18,8 @@ export default function Comprehension({comprehension}){
             <h2 className="text-2xl font-semibold">Comprehension</h2>
             {
                 comprehensionQues.map((passage, index) => {
-
                     return (
-                    <div key={uuid()} className="my-8">
+                    <div key={passage.id} className="my-8">
                         <div className="flex items-start">
                             <textarea 
                                 className="p-2" 
@@ -26,8 +27,7 @@ export default function Comprehension({comprehension}){
                                 id={index} 
                                 name='text' 
                                 placeholder='Enter comprehension passage' 
-                                value= {passage.text} 
-                                onChange={undefined}
+                                ref={el => passageRef.current[passage.id] = el}
                             ></textarea>
                             <Icon
                                 handleClick={addComprehensionQuestions}
@@ -39,84 +39,55 @@ export default function Comprehension({comprehension}){
                         <div>
                             {
                                 passage.ques.map((item, id) => {
-
                                     return (
-                                        <div key={uuid()}>
+                                        <div key={`${passage.id}-${id}`}>
                                             <div className="flex items-center mb-5 mt-6">
-                                                <input 
-                                                    className="p-2" 
-                                                    type="text" 
-                                                    name="text" 
-                                                    data-id={id} 
-                                                    data-index={index} 
-                                                    value={item.text} 
-                                                    onChange={undefined}
+                                                <Input
+                                                    name="text"
                                                     placeholder="Enter comprehension question"
+                                                    val={item.text} 
+                                                    onChange={e => handleInputChange(e, index, 'ques', id, 'text')}
                                                 />
                                                 <Icon
-                                                    id={index}
                                                     handleClick={() => addMcq(index)}
                                                     icon='&#43;'
                                                 />
-                                                {id>0 && <span
-                                                    data-index={index}
-                                                    data-id={id}
-                                                    onClick={() => removeMcq(index, id)}
-                                                    className="ml-8 text-4xl text-red-500 -mt-4 cursor-pointer"
-                                                >
-                                                    &#215;
-                                                </span>}
+                                                {id > 0 && <Icon
+                                                    handleClick={() => removeMcq(index, id)}
+                                                    icon='&#215;'
+                                                />}
                                             </div>
                                            <div className="grid grid-cols-2 gap-4">
-                                                <input 
-                                                    className="p-2 w-full" 
-                                                    type="text" 
-                                                    name="a" 
-                                                    data-id={id} 
-                                                    data-index={index} 
-                                                    value={item.a} 
-                                                    onChange={undefined}
+                                                <Input
+                                                    name="text"
                                                     placeholder="Option a"
+                                                    val={item.a}
+                                                    onChange={e => handleInputChange(e, index, 'ques', id, 'a')}
                                                 />
-                                                <input 
-                                                    className="p-2 w-full" 
-                                                    type="text" 
-                                                    name="b" 
-                                                    data-id={id} 
-                                                    data-index={index} 
-                                                    value={item.b} 
-                                                    onChange={undefined}
+                                                <Input
+                                                    name="text"
                                                     placeholder="Option b"
+                                                    val={item.b} 
+                                                    onChange={e => handleInputChange(e, index, 'ques', id, 'b')}
                                                 />
-                                                <input 
-                                                    className="p-2 w-full" 
-                                                    type="text" 
-                                                    name="c" 
-                                                    data-id={id} 
-                                                    data-index={index} 
-                                                    value={item.c} 
-                                                    onChange={undefined}
+                                                <Input
+                                                    name="text"
                                                     placeholder="Option c"
+                                                    val={item.c} 
+                                                    onChange={e => handleInputChange(e, index, 'ques', id, 'c')}
                                                 />
-                                                <input 
-                                                    className="p-2 w-full" 
-                                                    type="text" 
-                                                    name="d" 
-                                                    data-id={id} 
-                                                    data-index={index} 
-                                                    value={item.d} 
-                                                    onChange={undefined}
+                                                <Input
+                                                    name="text"
                                                     placeholder="Option d"
+                                                    val={item.d} 
+                                                    onChange={e => handleInputChange(e, index, 'ques', id, 'd')}
                                                 />
                                            </div>
-                                            
                                         </div>
                                     )
                                 })
                             }
-                           
                         </div>
-                        
                     </div>
                 )})
             }

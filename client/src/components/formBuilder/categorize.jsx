@@ -36,7 +36,6 @@ export default function Categorize({categorize}){
                                 />
                                 
                                 <Icon handleClick={addCategorizeQues} icon='&#43;'/>
-                                
                                 {qId > 0 && <Icon id={qId} handleClick={() => removeCategorizeQues(qId)} icon='&#215;' color='red'/>}
                             
                             </div>
@@ -60,8 +59,8 @@ export default function Categorize({categorize}){
                                                     placeholder='Category'
                                                     val={category.name}
                                                     onChange={e => handleInputChange(e, qId, 'categories', catId, 'name')}
-                                                    remove={() => removeCategory(qId, catId)}
                                                 />
+                                                {catId > 0 && <Icon handleClick={() => removeCategory(qId, catId)} icon='&#215;'/>}
                                             </div>
                                         )
                                     })
@@ -85,8 +84,8 @@ export default function Categorize({categorize}){
                                                     placeholder='Item'
                                                     val={item.name}
                                                     onChange={e => handleInputChange(e, qId, 'items', itemId, 'name')}
-                                                    remove={() => removeItem(qId, itemId)}
                                                 />
+                                                {itemId > 0 && <Icon handleClick={() => removeItem(qId, itemId)} icon='&#215;'/>}
                                                 <Select
                                                     val={item.belongsTo}
                                                     onChange={e => handleInputChange(e, qId, 'items', itemId, 'belongsTo')}
