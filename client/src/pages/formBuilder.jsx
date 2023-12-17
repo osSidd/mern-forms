@@ -3,13 +3,13 @@ import Cloze from "../components/formBuilder/cloze";
 import Comprehension from "../components/formBuilder/comprehension";
 
 import useCategorize from "../hooks/formBuilder/useCategorize";
-// import useCloze from "../hooks/formBuilder/useCloze";
+import useCloze from "../hooks/formBuilder/useCloze";
 import useComprehension from "../hooks/formBuilder/useComprehension";
 
 export default function FormBuilder(){
 
     const categorize = useCategorize()
-    // const cloze = useCloze()
+    const cloze = useCloze()
     const comprehension = useComprehension()
 
     function submitForm(){
@@ -22,9 +22,9 @@ export default function FormBuilder(){
             <Categorize
                 categorize={categorize}
             />
-            {/* <Cloze
+            <Cloze
                 cloze={cloze}
-            /> */}
+            />
             <Comprehension
                 comprehension={comprehension}
             />

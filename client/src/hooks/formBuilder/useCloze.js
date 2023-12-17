@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { addField, addQuestion, removeQuestion, removeField } from "../../utils/functions"
+import { addField, addQuestion, removeQuestion, removeField, handleInput } from "../../utils/functions"
 import { clozeObj } from "../../utils/formBuilderUtils"
 
 export default function useCloze(){
@@ -39,11 +39,18 @@ export default function useCloze(){
         setClozeQues(prev => removeField(prev, quesId, 'options', optionId))
     }
 
+    //handle input
+    function handleInputChange(e, qId, field, fId, fKey){
+        setClozeQues(prev => handleInput(e, prev, qId, field, fId, fKey))
+    }
+    
+
     return {
             clozeQues,
             addClozeQuestions,
             removeClozeQuestion,
             addOption,
             removeOption,
+            handleInputChange,
     }
 }

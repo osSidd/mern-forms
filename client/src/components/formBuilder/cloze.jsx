@@ -1,4 +1,5 @@
-import {v4 as uuid} from 'uuid'
+import Icon from './icon'
+import Input from './input'
 
 export default function Cloze({cloze}){
 
@@ -8,7 +9,10 @@ export default function Cloze({cloze}){
         removeClozeQuestion,
         addOption,
         removeOption,
+        handleInputChange,
     } = cloze
+
+    console.log(clozeQues)
 
     return(
         <div className="px-32">
@@ -16,7 +20,7 @@ export default function Cloze({cloze}){
             {
                 clozeQues.map((ques, qIndex) => {
                     return (
-                        <div className="mb-8" key={uuid()}>
+                        <div className="mb-8" key={ques.id}>
                             <button
                                 id={qIndex} 
                                 onClick={undefined} 
@@ -27,54 +31,39 @@ export default function Cloze({cloze}){
                                     contentEditable={true} 
                                     className="border border-gray-400 w-full h-60 rounded-md p-2"
                                 ></div>
-                                <span
-                                    onClick={addClozeQuestions}
-                                    className="-mt-3 ml-8 text-4xl text-gray-500 cursor-pointer"                                
-                                >
-                                    &#43;
-                                </span>
-                                {qIndex > 0 && <span
-                                    id={qIndex}
-                                    onClick={() => removeClozeQuestion(qIndex)}
-                                    className="-mt-3 ml-8 text-4xl text-red-500 cursor-pointer"                                
-                                >
-                                    &#215;
-                                </span>}
+                                <Icon
+                                    icon='&#43;'
+                                    handleClick={addClozeQuestions}
+                                />
+                                {qIndex > 0 && <Icon
+                                    icon='&#215;'
+                                    handleClick={() => removeClozeQuestion(qIndex)}
+                                />}
                             </div>
-                            <div className="mb-4 flex">
-                                <span
-                                    onClick={() => addOption(qIndex)}
-                                    className="-mt-3 mr-8 text-4xl text-gray-500 cursor-pointer"                                
-                                >
-                                    &#43;
-                                </span>
-                                <h3>Add more options</h3>
+                            <div className="mb-4 flex items-center">
+                                <Icon
+                                    icon='&#43;'
+                                    handleClick={() => addOption(qIndex)}
+                                />
+                                <h3 className='ml-4'>Add more options</h3>
                             </div>
                             <div>
                                 {
                                     ques.options.map((opt, opIndex) => {
                                         return (
-                                            <div key={uuid()}>
+                                            <div key={`${ques.id}-${opIndex}`}>
                                                 {opt.underlined ? <div>{opt.name}</div> : 
                                                 <div>
-                                                    <input 
-                                                        type="text"
+                                                    <Input
                                                         name="name"
-                                                        data-q={qIndex}
-                                                        data-op={opIndex} 
-                                                        className="w-4/12 p-2 mb-2" 
                                                         placeholder="Add option"
-                                                        value={opt.name}
-                                                        onChange={undefined}
+                                                        val={opt.name}
+                                                        onChange={e => handleInputChange(e, qIndex, 'options', opIndex, 'name')}
                                                     />
-                                                    {opIndex>0 && <span
-                                                        data-q={qIndex}
-                                                        data-op={opIndex}
-                                                        onClick={() => removeOption(qIndex, opIndex)}
-                                                        className="-mt-3 ml-4 text-4xl text-red-500 cursor-pointer"                                
-                                                    >
-                                                        &#215;
-                                                    </span>}
+                                                    {opIndex>0 && <Icon
+                                                        icon='&#215;'
+                                                        handleClick={() => removeOption(qIndex, opIndex)}
+                                                    />}
                                                 </div>
                                                 }
                                             </div>
