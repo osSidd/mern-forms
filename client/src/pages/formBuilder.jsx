@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Categorize from "../components/formBuilder/categorize";
 import Cloze from "../components/formBuilder/cloze";
 import Comprehension from "../components/formBuilder/comprehension";
@@ -11,6 +12,8 @@ export default function FormBuilder(){
     const categorize = useCategorize()
     const cloze = useCloze()
     const comprehension = useComprehension()
+
+    const [heading, setHeading] = useState('')
 
     async function submitForm(){
         const clozeRef = cloze.clozeRef
@@ -29,7 +32,7 @@ export default function FormBuilder(){
         try{
             const response = await fetch(`${import.meta.env.VITE_URL}/api/forms`, {
                 method: 'POST',
-                body: JSON.stringify({categorize: categorizeQues, cloze: clozeQues, comprehension: comprehensionQues}),
+                body: JSON.stringify({heading, categorize: categorizeQues, cloze: clozeQues, comprehension: comprehensionQues}),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -47,6 +50,8 @@ export default function FormBuilder(){
     return (
         <div className="mx-8 py-8">
             <h1 className="text-5xl font-bold">Form Builder</h1>
+            <label className='mt-8 mx-auto block' htmlFor="heading">Form heading:</label>
+            <input className='w-5/12 p-2' placeholder="Enter form heading" type="text" name="heading" value={heading} onChange={e => setHeading(e.target.value)}/>
             <Categorize categorize={categorize}/>
             <Cloze cloze={cloze}/>
             <Comprehension comprehension={comprehension}/>
