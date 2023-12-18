@@ -12,8 +12,29 @@ export default function FormBuilder(){
     const cloze = useCloze()
     const comprehension = useComprehension()
 
-    function submitForm(){
-        console.log(categorize.categorizeQues)
+    async function submitForm(){
+        const categorizeQues = categorize.categorizeQues
+        const clozeQues = cloze.clozeQues
+        const comprehensionQues = comprehension.comprehensionQues
+
+        const formData = new FormData()
+        formData.append('categorize', categorizeQues)
+        formData.append('cloze', clozeQues)
+        formData.append('comprehension', comprehensionQues)
+
+        try{
+            const response = await fetch(`${import.meta.env.VITE_URL}`, {
+                method: 'POST',
+                body: formData,
+            })
+
+            if(!response.ok) return
+
+            const data = await response.json()
+            console.log(data)
+        }catch(err){
+            console.log(err.message)
+        }
     }
 
     return (

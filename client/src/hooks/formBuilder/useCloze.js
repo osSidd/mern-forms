@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 import { addField, addQuestion, removeQuestion, removeField, handleInput } from "../../utils/functions"
 import { clozeObj } from "../../utils/formBuilderUtils"
@@ -10,9 +10,11 @@ export default function useCloze(){
         question: '', 
         options:[{
             name:'', 
-            underlined:false
+            underlined:false,
         }]
     }])
+
+    const clozeRef = useRef({})
 
     //add cloze question
     function addClozeQuestions(){
@@ -43,14 +45,32 @@ export default function useCloze(){
     function handleInputChange(e, qId, field, fId, fKey){
         setClozeQues(prev => handleInput(e, prev, qId, field, fId, fKey))
     }
+
+    //select a word
+    function makeSelection(qId){
+        const str = window.getSelection()
+        const rng = str.getRangeAt(0)
+
+        const span = document.createElement('span')
+        span.style.textDecoration = 'underline'
+
+        rng.surroundContents(span)
+        const text = str.toString()
+
+        setClozeQues(prev => prev.map((ques, id) => {
+            return id === qId ? {...ques, options: [...ques.options, {name: text, underlined: true}]} : ques
+        }))
+    }
     
 
     return {
             clozeQues,
+            clozeRef,
             addClozeQuestions,
             removeClozeQuestion,
             addOption,
             removeOption,
             handleInputChange,
+            makeSelection,
     }
 }
