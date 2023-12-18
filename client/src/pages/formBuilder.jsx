@@ -13,19 +13,26 @@ export default function FormBuilder(){
     const comprehension = useComprehension()
 
     async function submitForm(){
+        const clozeRef = cloze.clozeRef
+        const compRef = comprehension.passageRef
+
         const categorizeQues = categorize.categorizeQues
-        const clozeQues = cloze.clozeQues
-        const comprehensionQues = comprehension.comprehensionQues
+        const clozeQues = cloze.clozeQues.map((ques) => ({...ques, question: clozeRef.current[ques.id].innerHTML}))
+        const comprehensionQues = comprehension.comprehensionQues.map((ques) => ({...ques, text: compRef.current[ques.id].value}))
 
         const formData = new FormData()
         formData.append('categorize', categorizeQues)
         formData.append('cloze', clozeQues)
         formData.append('comprehension', comprehensionQues)
 
+        console.log(categorizeQues, clozeQues, comprehensionQues)
         try{
-            const response = await fetch(`${import.meta.env.VITE_URL}`, {
+            const response = await fetch(`${import.meta.env.VITE_URL}/api/forms`, {
                 method: 'POST',
-                body: formData,
+                body: JSON.stringify({categorize: categorizeQues, cloze: clozeQues, comprehension: comprehensionQues}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             })
 
             if(!response.ok) return
@@ -40,15 +47,9 @@ export default function FormBuilder(){
     return (
         <div className="mx-8 py-8">
             <h1 className="text-5xl font-bold">Form Builder</h1>
-            <Categorize
-                categorize={categorize}
-            />
-            <Cloze
-                cloze={cloze}
-            />
-            <Comprehension
-                comprehension={comprehension}
-            />
+            <Categorize categorize={categorize}/>
+            <Cloze cloze={cloze}/>
+            <Comprehension comprehension={comprehension}/>
             <button onClick={submitForm} className='bg-orange-200 py-2 px-4'>Submit</button>
         </div>
     )

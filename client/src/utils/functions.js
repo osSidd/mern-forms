@@ -29,8 +29,7 @@ function removeField(arr, arrayId, field, fieldId){
     })
 }
 
-function handleInput(e, arr,  arrayId, field, fId, fKey){
-    const {value} = e.target
+function handleInput(arr,  arrayId, field, fId, fKey, value){
     const qId = parseInt(arrayId)
     const fieldId = parseInt(fId)
     

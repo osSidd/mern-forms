@@ -45,7 +45,8 @@ export default function useComprehension(){
 
     //handle input
     function handleInputChange(e, qId, field, fId, fKey){
-        setComprehensionQues(prev => handleInput(e, prev, qId, field, fId, fKey))
+        const {value} = e.target
+        setComprehensionQues(prev => handleInput(prev, qId, field, fId, fKey, value))
     }
 
     return {

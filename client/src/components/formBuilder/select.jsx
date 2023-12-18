@@ -8,7 +8,7 @@ export default function Select({arr, val, onChange}){
          <option className='pointer-events-none'>Select category</option>
          {
             arr.map((op, index) => {
-                return op.name && <option key={`${op.name}-${index}`} value={op}>{op.name}</option>
+                return op.name && <option key={`${op.name}-${index}`} value={op.name}>{op.name}</option>
             })
          }
      </select>

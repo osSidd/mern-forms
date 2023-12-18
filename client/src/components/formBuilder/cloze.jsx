@@ -24,7 +24,7 @@ export default function Cloze({cloze}){
                             <button onClick={() => makeSelection(qIndex)} className="py-1 px-4">U</button>
                             <div className="flex items-start mb-6">
                                 <div 
-                                    ref={el => clozeRef[ques.id] = el}
+                                    ref={el => clozeRef.current[ques.id] = el}
                                     contentEditable={true} 
                                     className="border border-gray-400 w-full h-60 rounded-md p-2 bg-white"
                                 ></div>

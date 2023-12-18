@@ -43,7 +43,8 @@ export default function useCloze(){
 
     //handle input
     function handleInputChange(e, qId, field, fId, fKey){
-        setClozeQues(prev => handleInput(e, prev, qId, field, fId, fKey))
+        const {value} = e.target
+        setClozeQues(prev => handleInput(prev, qId, field, fId, fKey, value))
     }
 
     //select a word

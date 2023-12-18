@@ -3,7 +3,7 @@ import './App.css'
 
 export default function App(){
   return(
-    <div className='min-h-screen bg-teal-800  '>
+    <div className='min-h-screen bg-teal-800 '>
       <FormBuilder/>
     </div>
   )

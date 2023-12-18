@@ -53,7 +53,8 @@ export default function useBuilder(){
 
     //handle input
     function handleInputChange(e, qId, field, fId, fKey){
-        setCategorizeQues(prev => handleInput(e, prev, qId, field, fId, fKey))
+        const value = e.target.value
+        setCategorizeQues(prev => handleInput(prev, qId, field, fId, fKey, value))
     }
 
     return {
