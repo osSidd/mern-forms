@@ -38,6 +38,7 @@ npm run server
 - Using FormData on client side to handle multi-part form data
 
 ## Todos
+- [ ] Migrate app to next.js
 - [ ] Add typescript support
 - [ ] Add tests
 - [ ] Add more question types
