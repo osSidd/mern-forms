@@ -4,6 +4,8 @@
     "description": "A form builder using MERN stack",
     "scripts": {
         "client": "cd client && npm run dev",
-        "server": "cd server && npm run dev"
+        "server": "cd server && npm run dev",
+        "install-client": "cd client && npm install",
+        "install-server": "cd server && npm install"
     }
 }
