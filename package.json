@@ -1,0 +1,9 @@
+{
+    "name": "formbuilder",
+    "version": "0.0.0",
+    "description": "A form builder using MERN stack",
+    "scripts": {
+        "client": "cd client && npm run dev",
+        "server": "cd server && npm run dev"
+    }
+}

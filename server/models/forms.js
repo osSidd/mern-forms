@@ -6,6 +6,10 @@ const ClozeSchema = require('./questions/cloze')
 const ComprehensionSchema = require('./questions/comprehension')
 
 const FormSchema = new Schema({
+    heading: {
+        type: String,
+        required: true,
+    },
     categorize: {
         type: [CategorizeSchema],
         validator: {
