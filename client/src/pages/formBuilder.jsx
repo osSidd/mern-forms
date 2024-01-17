@@ -1,7 +1,12 @@
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
+
+import './formBuilder.css'
+
 import Categorize from "../components/formBuilder/categorize";
 import Cloze from "../components/formBuilder/cloze";
 import Comprehension from "../components/formBuilder/comprehension";
+import Header from "../components/header";
 
 import useCategorize from "../hooks/formBuilder/useCategorize";
 import useCloze from "../hooks/formBuilder/useCloze";
@@ -48,14 +53,26 @@ export default function FormBuilder(){
     }
 
     return (
-        <div className="mx-8 py-8">
-            <h1 className="text-5xl font-bold">Form Builder</h1>
+        <>
+            <header className=" shadow-md fixed top-0 left-0 w-full bg-white">
+                <div className="py-4 px-8 flex items-center">
+                    <Header/>
+                    <div className="ml-auto mr-2">
+                        <Link className="p-4 hover:bg-gray-50 rounded-full" title="preview" to='preview' target="_blank" rel="noreferrer"><i className="fa fa-eye text-xl text-gray-600"></i></Link>
+                    </div>
+                    <button title="save form" onClick={submitForm} className='bg-purple-700 text-white capitalize py-2 px-4'>save form</button>
+                </div>
+                <div className="text-center mt-4 pb-2">
+                    <NavLink className='mx-4 pb-2 font-semibold' to='/forms/questions'>Questions</NavLink>
+                    <NavLink className='mx-4 text-gray-400' to='/forms/responses'>Responses</NavLink>
+                    <NavLink className='mx-4 text-gray-400' to='/forms/settings'>Settings</NavLink>
+                </div>
+            </header>
             <label className='mt-8 mx-auto block' htmlFor="heading">Form heading:</label>
             <input className='w-5/12 p-2' placeholder="Enter form heading" type="text" name="heading" value={heading} onChange={e => setHeading(e.target.value)}/>
             <Categorize categorize={categorize}/>
             <Cloze cloze={cloze}/>
             <Comprehension comprehension={comprehension}/>
-            <button onClick={submitForm} className='bg-orange-200 py-2 px-4'>Submit</button>
-        </div>
+        </>
     )
 }

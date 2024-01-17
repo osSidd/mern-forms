@@ -1,3 +1,7 @@
 .container{
     @apply bg-blue-300 text-yellow-100;
 }
+
+.active{
+    border-bottom: 3px solid #233;
+}
