@@ -64,15 +64,24 @@ export default function FormBuilder(){
                 </div>
                 <div className="text-center mt-4 pb-2">
                     <NavLink className='mx-4 pb-2 font-semibold' to='/forms/questions'>Questions</NavLink>
-                    <NavLink className='mx-4 text-gray-400' to='/forms/responses'>Responses</NavLink>
-                    <NavLink className='mx-4 text-gray-400' to='/forms/settings'>Settings</NavLink>
+                    <NavLink className='mx-4 text-gray-400 pointer-events-none' to='/forms/responses'>Responses</NavLink>
+                    <NavLink className='mx-4 text-gray-400 pointer-events-none' to='/forms/settings'>Settings</NavLink>
                 </div>
             </header>
-            <label className='mt-8 mx-auto block' htmlFor="heading">Form heading:</label>
-            <input className='w-5/12 p-2' placeholder="Enter form heading" type="text" name="heading" value={heading} onChange={e => setHeading(e.target.value)}/>
-            <Categorize categorize={categorize}/>
-            <Cloze cloze={cloze}/>
-            <Comprehension comprehension={comprehension}/>
+            <main className="pt-24 bg-amber-50">
+                <div className="rounded-xl overflow-hidden shadow-md w-7/12 mx-auto mt-32">
+                <div className="px-4  py-6 w-full mx-auto bg-white border-t-gray-700 border-t-8">
+                    <label aria-label="form-title" className='hidden' htmlFor="heading">Form title</label>
+                    <input className='block mx-auto w-full p-2 text-3xl outline-none border-gray-500 border-b border-x-0 border-t-0 rounded-none focus:border-b-2' placeholder="Form title" type="text" name="heading" value={heading} onChange={e => setHeading(e.target.value)}/>
+
+                    <label aria-label="form-description" htmlFor="description" className="hidden">description</label>
+                    <input type="text" placeholder="Form description" className='block mt-3 mx-auto p-1 w-full text-lg outline-none border-gray-500 border-b border-x-0 border-t-0 rounded-none focus:border-b-2'/>
+                </div>
+                </div>
+                <Categorize categorize={categorize}/>
+                <Cloze cloze={cloze}/>
+                <Comprehension comprehension={comprehension}/>
+            </main>
         </>
     )
 }
