@@ -64,9 +64,9 @@ export default function FormBuilder(){
                     <div className="ml-auto mr-2">
                         <Link className="p-4 hover:bg-gray-50 rounded-full" title="preview" to='preview' target="_blank" rel="noreferrer"><Icon icon='eye'/></Link>
                     </div>
-                    <button title="save form" onClick={submitForm} className='bg-purple-700 text-white capitalize py-2 px-4'>save form</button>
+                    <button title="save form" onClick={submitForm} className='hidden sm:block bg-purple-700 text-white capitalize py-2 px-4'>save form</button>
                 </div>
-                <div className="text-center mt-4 pb-2">
+                <div className="text-center mt-2 pb-2">
                     <NavLink className='mx-4 pb-2 font-semibold' to='/forms/questions'>Questions</NavLink>
                     <NavLink className='mx-4 text-gray-400 pointer-events-none' to='/forms/responses'>Responses</NavLink>
                     <NavLink className='mx-4 text-gray-400 pointer-events-none' to='/forms/settings'>Settings</NavLink>
