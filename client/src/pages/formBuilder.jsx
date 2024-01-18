@@ -1,16 +1,19 @@
 import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 
 import './formBuilder.css'
 
-import Categorize from "../components/formBuilder/categorize";
-import Cloze from "../components/formBuilder/cloze";
-import Comprehension from "../components/formBuilder/comprehension";
+// import Categorize from "../components/formBuilder/categorize";
+// import Cloze from "../components/formBuilder/cloze";
+// import Comprehension from "../components/formBuilder/comprehension";
 import Header from "../components/header";
 
 import useCategorize from "../hooks/formBuilder/useCategorize";
 import useCloze from "../hooks/formBuilder/useCloze";
 import useComprehension from "../hooks/formBuilder/useComprehension";
+import FormHeading from "../components/formHeading";
+import QuestionBox from "../components/questionBox";
+import Icon from "../components/icon";
 
 export default function FormBuilder(){
 
@@ -18,7 +21,7 @@ export default function FormBuilder(){
     const cloze = useCloze()
     const comprehension = useComprehension()
 
-    const [heading, setHeading] = useState('')
+    // const [heading, setHeading] = useState('')
 
     async function submitForm(){
         const clozeRef = cloze.clozeRef
@@ -37,7 +40,8 @@ export default function FormBuilder(){
         try{
             const response = await fetch(`${import.meta.env.VITE_URL}/api/forms`, {
                 method: 'POST',
-                body: JSON.stringify({heading, categorize: categorizeQues, cloze: clozeQues, comprehension: comprehensionQues}),
+                // body: JSON.stringify({heading, categorize: categorizeQues, cloze: clozeQues, comprehension: comprehensionQues}),
+                body: JSON.stringify({categorize: categorizeQues, cloze: clozeQues, comprehension: comprehensionQues}),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -58,7 +62,7 @@ export default function FormBuilder(){
                 <div className="py-4 px-8 flex items-center">
                     <Header/>
                     <div className="ml-auto mr-2">
-                        <Link className="p-4 hover:bg-gray-50 rounded-full" title="preview" to='preview' target="_blank" rel="noreferrer"><i className="fa fa-eye text-xl text-gray-600"></i></Link>
+                        <Link className="p-4 hover:bg-gray-50 rounded-full" title="preview" to='preview' target="_blank" rel="noreferrer"><Icon icon='eye'/></Link>
                     </div>
                     <button title="save form" onClick={submitForm} className='bg-purple-700 text-white capitalize py-2 px-4'>save form</button>
                 </div>
@@ -68,19 +72,12 @@ export default function FormBuilder(){
                     <NavLink className='mx-4 text-gray-400 pointer-events-none' to='/forms/settings'>Settings</NavLink>
                 </div>
             </header>
-            <main className="pt-24 bg-amber-50">
-                <div className="rounded-xl overflow-hidden shadow-md w-7/12 mx-auto mt-32">
-                <div className="px-4  py-6 w-full mx-auto bg-white border-t-gray-700 border-t-8">
-                    <label aria-label="form-title" className='hidden' htmlFor="heading">Form title</label>
-                    <input className='block mx-auto w-full p-2 text-3xl outline-none border-gray-500 border-b border-x-0 border-t-0 rounded-none focus:border-b-2' placeholder="Form title" type="text" name="heading" value={heading} onChange={e => setHeading(e.target.value)}/>
-
-                    <label aria-label="form-description" htmlFor="description" className="hidden">description</label>
-                    <input type="text" placeholder="Form description" className='block mt-3 mx-auto p-1 w-full text-lg outline-none border-gray-500 border-b border-x-0 border-t-0 rounded-none focus:border-b-2'/>
-                </div>
-                </div>
-                <Categorize categorize={categorize}/>
-                <Cloze cloze={cloze}/>
-                <Comprehension comprehension={comprehension}/>
+            <main className="pt-36">
+                <FormHeading/>
+                <QuestionBox/>
+                {/* <Categorize categorize={categorize}/> */}
+                {/* <Cloze cloze={cloze}/> */}
+                {/* <Comprehension comprehension={comprehension}/> */}
             </main>
         </>
     )
