@@ -1,3 +1,4 @@
+import React from "react";
 import Divider from "./divider";
 import Dropdown from "./dropdown";
 import Icon from "./icon";
@@ -6,10 +7,11 @@ import QuestionWrapper from "./questionWrapper";
 
 export default function QuestionBox(){
     return (
-        <QuestionWrapper>
+        <QuestionWrapper heading={false}>
             <div className="grid grid-cols-12 gap-x-4 items-center mb-12">
                 <div className="col-start-1 col-span-7">
                     <Input
+                        label="question1"
                         type='text'
                         name='question1'
                         placeholder='Question'

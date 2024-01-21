@@ -9,18 +9,18 @@ import './formBuilder.css'
 // import Comprehension from "../components/formBuilder/comprehension";
 import Header from "../components/header";
 
-import useCategorize from "../hooks/formBuilder/useCategorize";
-import useCloze from "../hooks/formBuilder/useCloze";
-import useComprehension from "../hooks/formBuilder/useComprehension";
+// import useCategorize from "../hooks/formBuilder/useCategorize";
+// import useCloze from "../hooks/formBuilder/useCloze";
+// import useComprehension from "../hooks/formBuilder/useComprehension";
 import FormHeading from "../components/formHeading";
 import QuestionBox from "../components/questionBox";
 import Icon from "../components/icon";
 
 export default function FormBuilder(){
 
-    const categorize = useCategorize()
-    const cloze = useCloze()
-    const comprehension = useComprehension()
+    // const categorize = useCategorize()
+    // const cloze = useCloze()
+    // const comprehension = useComprehension()
 
     // const [heading, setHeading] = useState('')
 
