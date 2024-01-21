@@ -39,6 +39,6 @@ npm run server
 
 ## Todos
 - [ ] Migrate app to next.js
-- [ ] Add typescript support
+- [x] Add typescript support
 - [ ] Add tests
 - [ ] Add more question types
