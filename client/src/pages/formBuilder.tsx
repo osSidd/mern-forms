@@ -1,3 +1,4 @@
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
 // import { useState } from "react";
 
@@ -23,38 +24,38 @@ export default function FormBuilder(){
 
     // const [heading, setHeading] = useState('')
 
-    async function submitForm(){
-        const clozeRef = cloze.clozeRef
-        const compRef = comprehension.passageRef
+    // async function submitForm(){
+    //     const clozeRef = cloze.clozeRef
+    //     const compRef = comprehension.passageRef
 
-        const categorizeQues = categorize.categorizeQues
-        const clozeQues = cloze.clozeQues.map((ques) => ({...ques, question: clozeRef.current[ques.id].innerHTML}))
-        const comprehensionQues = comprehension.comprehensionQues.map((ques) => ({...ques, text: compRef.current[ques.id].value}))
+    //     const categorizeQues = categorize.categorizeQues
+    //     const clozeQues = cloze.clozeQues.map((ques) => ({...ques, question: clozeRef.current[ques.id].innerHTML}))
+    //     const comprehensionQues = comprehension.comprehensionQues.map((ques) => ({...ques, text: compRef.current[ques.id].value}))
 
-        const formData = new FormData()
-        formData.append('categorize', categorizeQues)
-        formData.append('cloze', clozeQues)
-        formData.append('comprehension', comprehensionQues)
+    //     const formData = new FormData()
+    //     formData.append('categorize', categorizeQues)
+    //     formData.append('cloze', clozeQues)
+    //     formData.append('comprehension', comprehensionQues)
 
-        console.log(categorizeQues, clozeQues, comprehensionQues)
-        try{
-            const response = await fetch(`${import.meta.env.VITE_URL}/api/forms`, {
-                method: 'POST',
-                // body: JSON.stringify({heading, categorize: categorizeQues, cloze: clozeQues, comprehension: comprehensionQues}),
-                body: JSON.stringify({categorize: categorizeQues, cloze: clozeQues, comprehension: comprehensionQues}),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+    //     console.log(categorizeQues, clozeQues, comprehensionQues)
+    //     try{
+    //         const response = await fetch(`${import.meta.env.VITE_URL}/api/forms`, {
+    //             method: 'POST',
+    //             // body: JSON.stringify({heading, categorize: categorizeQues, cloze: clozeQues, comprehension: comprehensionQues}),
+    //             body: JSON.stringify({categorize: categorizeQues, cloze: clozeQues, comprehension: comprehensionQues}),
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         })
 
-            if(!response.ok) return
+    //         if(!response.ok) return
 
-            const data = await response.json()
-            console.log(data)
-        }catch(err){
-            console.log(err.message)
-        }
-    }
+    //         const data = await response.json()
+    //         console.log(data)
+    //     }catch(err){
+    //         console.log(err.message)
+    //     }
+    // }
 
     return (
         <>
@@ -64,7 +65,7 @@ export default function FormBuilder(){
                     <div className="ml-auto mr-2">
                         <Link className="p-4 hover:bg-gray-50 rounded-full" title="preview" to='preview' target="_blank" rel="noreferrer"><Icon icon='eye'/></Link>
                     </div>
-                    <button title="save form" onClick={submitForm} className='hidden sm:block bg-purple-700 text-white capitalize py-2 px-4'>save form</button>
+                    <button title="save form" onClick={() => {}} className='hidden sm:block bg-purple-700 text-white capitalize py-2 px-4'>save form</button>
                 </div>
                 <div className="text-center mt-2 pb-2">
                     <NavLink className='mx-4 pb-2 font-semibold' to='/forms/questions'>Questions</NavLink>
