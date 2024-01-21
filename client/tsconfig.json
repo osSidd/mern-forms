@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noImplicitAny": true,
+        "target": "ES5",
+        "module": "ES6",
+        "noEmit": true,
+        "jsx": "react",
+        "strict": true,
+        "lib": ["DOM", "DOM.Iterable", "ESNext"],
+        "allowJs": false,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "esModuleInterop": false,
+        "allowSyntheticDefaultImports": true,
+        "paths": {
+            "@/*": ["./client/src/*"]
+        }
+    },
+    "include": ["./src/**/*"],
+    "exclude": ["./build", "node_modules", "./config"]
+}
