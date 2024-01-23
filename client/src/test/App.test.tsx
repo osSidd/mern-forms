@@ -1,12 +1,10 @@
 import React from 'react';
 import '@testing-library/jest-dom'
-import {render} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import App from '../App';
+import { BrowserRouter } from 'react-router-dom';
 
-test('demo', () => {
-    expect(true).toBe(true)
-})
-
-test('render the main page', () => {
-    render(<App/>)
+test('render the main page', async () => {
+    render(<BrowserRouter><App/></BrowserRouter>)
+    expect(await screen.findByText(/Loading/)).toBeInTheDocument()
 })

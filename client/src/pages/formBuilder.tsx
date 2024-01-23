@@ -17,7 +17,7 @@ import QuestionBox from "../components/questionBox";
 import Icon from "../components/icon";
 
 export default function FormBuilder(){
-
+console.log('form builder')
     // const categorize = useCategorize()
     // const cloze = useCloze()
     // const comprehension = useComprehension()

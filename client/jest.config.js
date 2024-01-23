@@ -1,5 +1,5 @@
 export default {
-    // preset: 'ts-jest',
+    preset: 'ts-jest',
     testEnvironment: 'jest-environment-jsdom',
     transform: {
         // "^.+\\.tsx?$": "babel-jest" 

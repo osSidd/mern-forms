@@ -11,10 +11,10 @@ export default function HomePage(){
             <main className="mt-32 md:mt-48 px-8">                
                 <div className="text-center">
                     <h2 className="text-3xl md:text-6xl font-light">Get insights quickly, with MERN forms</h2>
-                    <p className="mt-5 text-lg md:text-xl text-gray-600">Easily create and share online forms and surveys, and analyze responses in real-time.</p>
+                    <p role="contentinfo" className="mt-5 text-lg md:text-xl text-gray-600">Easily create and share online forms and surveys, and analyze responses in real-time.</p>
                 </div>
                 <div>
-                    <Link className='px-8 py-3 rounded-md bg-primary text-white font-semibold mx-auto mt-12 mb-4 block w-fit' to='/forms/questions'>Go to Forms</Link>
+                    <Link onClick={() => console.log('clicked')} className='px-8 py-3 rounded-md bg-primary text-white font-semibold mx-auto mt-12 mb-4 block w-fit' to='/forms/questions'>Go to Forms</Link>
                 </div>
             </main>
         </>

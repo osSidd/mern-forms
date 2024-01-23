@@ -17,9 +17,9 @@
         "sourceMap": true,
         "esModuleInterop": false,
         "allowSyntheticDefaultImports": true,
-        "paths": {
-            "@/*": ["./client/src/*"]
-        }
+        // "paths": {
+        //     "@/*": ["./client/src/*"]
+        // }
     },
     "include": ["./src/**/*"],
     "exclude": ["./build", "node_modules", "./config"]
