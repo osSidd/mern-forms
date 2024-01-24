@@ -5,3 +5,8 @@ export interface InputBox{
     placeholder: string
     textSize: string
 }
+
+export interface QuestionType{
+    label: string
+    icon: string
+}

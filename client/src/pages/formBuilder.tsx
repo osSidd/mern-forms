@@ -59,7 +59,7 @@ console.log('form builder')
 
     return (
         <>
-            <header className=" shadow-md fixed top-0 left-0 w-full bg-white">
+            <header className=" shadow-md fixed top-0 left-0 w-full bg-white z-10">
                 <div className="py-4 px-8 flex items-center">
                     <Header/>
                     <div className="ml-auto mr-2">

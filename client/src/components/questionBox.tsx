@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Divider from "./divider";
 import Dropdown from "./dropdown";
 import Icon from "./icon";
 import Input from "./input";
 import QuestionWrapper from "./questionWrapper";
+import { QuestionType } from "src/types";
 
 export default function QuestionBox(){
+    const [question, setQuestion] = useState({
+        label: 'Multiple choice',
+        icon: 'dot-circle-o'
+    })
+
+    function selectQuestion(q:QuestionType){
+        setQuestion(q)
+    }
+
     return (
         <QuestionWrapper heading={false}>
             <div className="grid grid-cols-12 gap-x-4 items-center mb-12">
@@ -22,7 +32,7 @@ export default function QuestionBox(){
                     <Icon icon='photo' size="xl"/>
                 </div>
                 <div className="col-span-4">
-                    <Dropdown/>
+                    <Dropdown question={question} selectQuestion={selectQuestion}/>
                 </div>
             </div>
             <Divider/>
