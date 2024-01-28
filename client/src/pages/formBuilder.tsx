@@ -62,9 +62,14 @@ export default function FormBuilder(){
         console.log('hi')
         switch(action){
             case 'ADD_QUESTION':
-                setFormContent(prev => ([...prev, <QuestionBox/>]))
+                setFormContent(prev => ([...prev, <QuestionBox id={prev.length} removeQuestion={removeQuestion}/>]))
                 return
         }
+    }
+
+    function removeQuestion(id: number){
+        console.log('hi there', id)
+        setFormContent(prev => (prev.filter((ques, index) => index !== id)))
     }
 
     return (

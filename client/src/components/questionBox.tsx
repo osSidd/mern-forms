@@ -6,7 +6,7 @@ import Input from "./input";
 import QuestionWrapper from "./questionWrapper";
 import { QuestionType } from "src/types";
 
-export default function QuestionBox(){
+export default function QuestionBox({id, removeQuestion}: {id:number, removeQuestion: (id: number) => void}){
     const [question, setQuestion] = useState({
         label: 'Multiple choice',
         icon: 'dot-circle-o'
@@ -38,7 +38,9 @@ export default function QuestionBox(){
             <Divider/>
             <div className="flex items-center justify-between w-2/12 ml-auto mr-8 mt-4">
                 <Icon icon='clone' size="xl"/>
-                <Icon icon='trash-o' size="2xl"/>
+                <span onClick={e => removeQuestion(id)}>
+                    <Icon icon='trash-o' size="2xl"/>
+                </span>
                 <Icon icon='ellipsis-v' size="xl"/>
             </div>
         </QuestionWrapper>
