@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-// import { useState } from "react";
+import { useState } from "react";
 
 import './formBuilder.css'
 
@@ -18,7 +18,7 @@ import Icon from "../components/icon";
 import Toolbar from "../components/toolbar";
 
 export default function FormBuilder(){
-console.log('form builder')
+    const [formContent, setFormContent] = useState([])
     // const categorize = useCategorize()
     // const cloze = useCloze()
     // const comprehension = useComprehension()
@@ -58,6 +58,15 @@ console.log('form builder')
     //     }
     // }
 
+    function toggleFormContent(action:string){
+        console.log('hi')
+        switch(action){
+            case 'ADD_QUESTION':
+                setFormContent(prev => ([...prev, <QuestionBox/>]))
+                return
+        }
+    }
+
     return (
         <>
             <header className=" shadow-md fixed top-0 left-0 w-full bg-white z-10">
@@ -74,14 +83,18 @@ console.log('form builder')
                     <NavLink className='mx-4 text-gray-400 pointer-events-none' to='/forms/settings'>Settings</NavLink>
                 </div>
             </header>
-            <main className="pt-36">
+            <main className="pt-36 bg-main min-h-screen">
                 <FormHeading/>
-                <div className="relative">
+                <div className="">
                     <div className="flex-1">
-                        <QuestionBox/>
+                        {
+                            formContent.map((content, index) => (
+                                <div key={index}>{content}</div>      
+                            ))
+                        }
                     </div>
-                    <div className="absolute top-0 right-48">
-                        <Toolbar/>
+                    <div className="absolute top-80 right-48">
+                        <Toolbar handleClick={toggleFormContent}/>
                     </div>
                 </div>
                 {/* <Categorize categorize={categorize}/> */}

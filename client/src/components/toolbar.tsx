@@ -1,24 +1,24 @@
 import React from "react"
 import Icon from "./icon"
-export default function Toolbar(){
+export default function Toolbar({handleClick}:{handleClick: (action:string) => void}){
     return(
-        <div className="flex flex-col shadow-md px-4 py-2 rounded-md [&>span+span]:mt-2">
-            <span>
+        <div className="flex flex-col bg-white shadow-md px-4 py-2 rounded-md [&>span+span]:mt-2">
+            <span title="Add question" className='' onClick={e => handleClick('ADD_QUESTION')}>
                 <Icon icon='plus-circle' size="2xl"/>    
             </span>
-            <span>
+            <span title="import question" className=''>
                 <Icon icon='file' size="xl"/>    
             </span>
-            <span>
+            <span title="Add title description">
                 <Icon icon='header' size="xl"/>    
             </span>
-            <span>
+            <span title="Add image">
                 <Icon icon='image' size="xl"/>    
             </span>
-            <span>
+            <span title="Add video">
                 <Icon icon='video-camera' size="xl"/>    
             </span>
-            <span>
+            <span title="Add section">
                 <Icon icon='square' size="xl"/>    
             </span>
         </div>
