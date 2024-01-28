@@ -15,6 +15,7 @@ import Header from "../components/header";
 import FormHeading from "../components/formHeading";
 import QuestionBox from "../components/questionBox";
 import Icon from "../components/icon";
+import Toolbar from "../components/toolbar";
 
 export default function FormBuilder(){
 console.log('form builder')
@@ -75,7 +76,14 @@ console.log('form builder')
             </header>
             <main className="pt-36">
                 <FormHeading/>
-                <QuestionBox/>
+                <div className="relative">
+                    <div className="flex-1">
+                        <QuestionBox/>
+                    </div>
+                    <div className="absolute top-0 right-48">
+                        <Toolbar/>
+                    </div>
+                </div>
                 {/* <Categorize categorize={categorize}/> */}
                 {/* <Cloze cloze={cloze}/> */}
                 {/* <Comprehension comprehension={comprehension}/> */}
