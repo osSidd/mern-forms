@@ -37,7 +37,7 @@ export default function Dropdown({question, selectQuestion}: DropdownProps){
 
 function DropdownOptions({id, selectQuestion, toggleOptions}: OptionsProps){
     return (
-        <div className="absolute top-10 w-56 cursor-pointer bg-white shadow-md rounded-md z-50">
+        <div style={{top: '2.5rem'}} className={`fixed w-56 cursor-pointer bg-white shadow-md rounded-md z-50`}>
             {
                 options.map((group, index) => (
                     <ul className="border-b border-gray-300" key={index}>
