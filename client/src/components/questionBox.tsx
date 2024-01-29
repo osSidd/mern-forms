@@ -6,15 +6,14 @@ import Input from "./input";
 import QuestionWrapper from "./questionWrapper";
 import { QuestionType } from "src/types";
 
-export default function QuestionBox({id, removeQuestion}: {id:number, removeQuestion: (id: number) => void}){
-    const [question, setQuestion] = useState({
-        label: 'Multiple choice',
-        icon: 'dot-circle-o'
-    })
+interface questionBoxType{
+    content:{id: number, label: string, icon:string}
+    removeQuestion: (id: number) => void
+    duplicateQuestion: (id: number) => void
+    selectQuestion: (q: QuestionType) => void
+}
 
-    function selectQuestion(q:QuestionType){
-        setQuestion(q)
-    }
+export default function QuestionBox({content, removeQuestion, duplicateQuestion, selectQuestion}: questionBoxType){
 
     return (
         <QuestionWrapper heading={false}>
@@ -32,13 +31,15 @@ export default function QuestionBox({id, removeQuestion}: {id:number, removeQues
                     <Icon icon='photo' size="xl"/>
                 </div>
                 <div className="col-span-4">
-                    <Dropdown question={question} selectQuestion={selectQuestion}/>
+                    <Dropdown question={content} selectQuestion={selectQuestion}/>
                 </div>
             </div>
             <Divider/>
             <div className="flex items-center justify-between w-2/12 ml-auto mr-8 mt-4">
-                <Icon icon='clone' size="xl"/>
-                <span onClick={e => removeQuestion(id)}>
+                <span onClick={e => duplicateQuestion(content.id)}>
+                    <Icon icon='clone' size="xl"/>
+                </span>
+                <span onClick={e => removeQuestion(content.id)}>
                     <Icon icon='trash-o' size="2xl"/>
                 </span>
                 <Icon icon='ellipsis-v' size="xl"/>

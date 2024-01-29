@@ -8,6 +8,7 @@ interface DropdownProps{
 }
 
 interface OptionsProps{
+    id: number
     selectQuestion: (q:QuestionType) => void
     toggleOptions: (e:React.SyntheticEvent) => void
 }
@@ -27,14 +28,14 @@ export default function Dropdown({question, selectQuestion}: DropdownProps){
                 <div className="-mt-2"><Icon icon='sort-down' size="md"/></div>
             </div>
             <div className={`${displayOptions ? 'block': 'hidden'}`}>
-                <DropdownOptions selectQuestion={selectQuestion} toggleOptions={toggleOptions}/>
+                <DropdownOptions id={question.id} selectQuestion={selectQuestion} toggleOptions={toggleOptions}/>
             </div>
         </div>
         
     )
 }
 
-function DropdownOptions({selectQuestion, toggleOptions}: OptionsProps){
+function DropdownOptions({id, selectQuestion, toggleOptions}: OptionsProps){
     return (
         <div className="absolute top-10 w-56 cursor-pointer bg-white shadow-md rounded-md z-50">
             {
@@ -42,7 +43,7 @@ function DropdownOptions({selectQuestion, toggleOptions}: OptionsProps){
                     <ul className="border-b border-gray-300" key={index}>
                         {
                             group.map(option => (
-                                <li onClick={e => {selectQuestion(option); toggleOptions(e)}} className="my-2 py-1.5 px-4 flex items-center hover:bg-gray-200" key={option.label}>
+                                <li onClick={e => {selectQuestion({...option, id}); toggleOptions(e)}} className="my-2 py-1.5 px-4 flex items-center hover:bg-gray-200" key={option.label}>
                                     <Icon icon={option.icon} size="2xl"/>
                                     <span className='ml-3 text-sm'>{option.label}</span>
                                 </li>

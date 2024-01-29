@@ -16,10 +16,12 @@ import FormHeading from "../components/formHeading";
 import QuestionBox from "../components/questionBox";
 import Icon from "../components/icon";
 import Toolbar from "../components/toolbar";
+import { QuestionType } from "src/types";
 
 interface formContentType{
     id: number
-    ques: ReactNode
+    label: string
+    icon: string
 }
 
 export default function FormBuilder(){
@@ -64,17 +66,40 @@ export default function FormBuilder(){
     // }
 
     function toggleFormContent(action:string){
-        console.log('hi')
         switch(action){
             case 'ADD_QUESTION':
-                setFormContent(prev => ([...prev, {id: prev.length, ques: <QuestionBox id={prev.length} removeQuestion={removeQuestion}/>}]))
+                addQuestion()
                 return
         }
     }
 
+    function duplicateQuestion(id: number){
+        setFormContent(prev => {
+            let arr = [...prev]
+            
+            let content = prev.find(item => item.id === id) as formContentType
+    
+            arr.splice(id+1, 0, {...content, id: content.id + 1})
+            return arr.map((item, index) => ({...item, id: index}))
+        })
+    }
+
+    function addQuestion(){
+        setFormContent(prev => ([...prev, {id: prev.length, label: 'Multiple choice', icon: 'dot-circle-o'}]))
+    }
+
     function removeQuestion(id: number){
-        console.log('hi there', id)
         setFormContent(prev => (prev.filter(ques => ques.id !== id)))
+    }
+
+    function selectQuestion(option: QuestionType){
+        setFormContent(prev => prev.map(item => (
+            {
+                ...item, 
+                label: option.id === item.id ? option.label : item.label,
+                icon: option.id === item.id ? option.icon : item.icon
+            }
+        )))
     }
 
     return (
@@ -99,7 +124,13 @@ export default function FormBuilder(){
                     <div className="flex-1">
                         {
                             formContent.map(content => (
-                                <div key={content.id}>{content.ques}</div>      
+                                <QuestionBox
+                                    key={content.id}
+                                    content={content}
+                                    selectQuestion={selectQuestion}
+                                    removeQuestion={removeQuestion}
+                                    duplicateQuestion={duplicateQuestion}
+                                />
                             ))
                         }
                     </div>

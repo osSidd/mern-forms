@@ -7,6 +7,7 @@ export interface InputBox{
 }
 
 export interface QuestionType{
+    id: number
     label: string
     icon: string
 }
