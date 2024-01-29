@@ -134,7 +134,7 @@ export default function FormBuilder(){
                             ))
                         }
                     </div>
-                    <div className="absolute top-80 right-48">
+                    <div style={{top: '25rem'}} className="fixed right-48">
                         <Toolbar handleClick={toggleFormContent}/>
                     </div>
                 </div>
