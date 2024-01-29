@@ -2,7 +2,7 @@ import React from "react"
 import Icon from "./icon"
 export default function Toolbar({handleClick}:{handleClick: (action:string) => void}){
     return(
-        <div className="flex flex-col bg-white shadow-md px-4 py-2 rounded-md [&>span+span]:mt-2">
+        <div className="flex flex-col bg-white shadow-md px-4 py-2 rounded-lg [&>span+span]:mt-2">
             <span title="Add question" className='' onClick={e => handleClick('ADD_QUESTION')}>
                 <Icon icon='plus-circle' size="2xl"/>    
             </span>

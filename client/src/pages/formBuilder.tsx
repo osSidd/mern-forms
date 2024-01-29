@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 
@@ -17,8 +17,13 @@ import QuestionBox from "../components/questionBox";
 import Icon from "../components/icon";
 import Toolbar from "../components/toolbar";
 
+interface formContentType{
+    id: number
+    ques: ReactNode
+}
+
 export default function FormBuilder(){
-    const [formContent, setFormContent] = useState([])
+    const [formContent, setFormContent] = useState<formContentType[]>([])
     // const categorize = useCategorize()
     // const cloze = useCloze()
     // const comprehension = useComprehension()
@@ -62,14 +67,14 @@ export default function FormBuilder(){
         console.log('hi')
         switch(action){
             case 'ADD_QUESTION':
-                setFormContent(prev => ([...prev, <QuestionBox id={prev.length} removeQuestion={removeQuestion}/>]))
+                setFormContent(prev => ([...prev, {id: prev.length, ques: <QuestionBox id={prev.length} removeQuestion={removeQuestion}/>}]))
                 return
         }
     }
 
     function removeQuestion(id: number){
         console.log('hi there', id)
-        setFormContent(prev => (prev.filter((ques, index) => index !== id)))
+        setFormContent(prev => (prev.filter(ques => ques.id !== id)))
     }
 
     return (
@@ -93,8 +98,8 @@ export default function FormBuilder(){
                 <div className="">
                     <div className="flex-1">
                         {
-                            formContent.map((content, index) => (
-                                <div key={index}>{content}</div>      
+                            formContent.map(content => (
+                                <div key={content.id}>{content.ques}</div>      
                             ))
                         }
                     </div>
