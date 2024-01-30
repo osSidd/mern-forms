@@ -7,13 +7,14 @@ import QuestionWrapper from "./questionWrapper";
 import { QuestionType } from "src/types";
 
 interface questionBoxType{
-    content:{id: number, label: string, icon:string}
+    content:{id: number, label: string, icon:string, question: string}
     removeQuestion: (id: number) => void
     duplicateQuestion: (id: number) => void
     selectQuestion: (q: QuestionType) => void
+    handleQuestionChange: (id:number, value:string) => void
 }
 
-export default function QuestionBox({content, removeQuestion, duplicateQuestion, selectQuestion}: questionBoxType){
+export default function QuestionBox({content, removeQuestion, duplicateQuestion, selectQuestion, handleQuestionChange}: questionBoxType){
 
     return (
         <QuestionWrapper heading={false}>
@@ -25,6 +26,8 @@ export default function QuestionBox({content, removeQuestion, duplicateQuestion,
                         name='question1'
                         placeholder='Question'
                         textSize='xl'
+                        value={content.question}
+                        handleChange={(e:React.ChangeEvent) => handleQuestionChange(content.id, (e.target as HTMLInputElement).value)}
                     />
                 </div>
                 <div className="col-span-1">

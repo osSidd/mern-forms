@@ -4,6 +4,8 @@ export interface InputBox{
     name: string
     placeholder: string
     textSize: string
+    value: string
+    handleChange: (e:React.ChangeEvent) => void
 }
 
 export interface QuestionType{

@@ -53,6 +53,14 @@ function mapField(arr, index, value, key){
     })
 }
 
+function debounce(fn, delay=3000){
+    let id
+    return function(){
+        clearTimeout(id)
+        id = setTimeout(() => fn.apply(this, arguments), delay)
+    }
+}
+
 // /////////////////
 // function filterField(arr, index){
 //     return arr.filter(item => arr.indexOf(item) !== index)
@@ -66,4 +74,5 @@ export {
     addField,
     removeField,
     handleInput,
+    debounce,
 }
