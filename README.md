@@ -36,6 +36,7 @@ npm run server
 
 ## Learning
 - Using FormData on client side to handle multi-part form data
+- Using portals to render modal elements
 
 ## Todos
 - [ ] Migrate app to next.js

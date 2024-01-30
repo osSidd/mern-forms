@@ -32,6 +32,8 @@ export default function FormBuilder(){
         }
     }
 
+    console.log(formContent)
+
     function duplicateQuestion(id: number){
         setFormContent(prev => {
             let arr = [...prev]
@@ -86,7 +88,7 @@ export default function FormBuilder(){
                     <NavLink className='mx-4 text-gray-400 pointer-events-none' to='/forms/settings'>Settings</NavLink>
                 </div>
             </header>
-            <main className="pt-36 bg-main min-h-screen">
+            <main className="pt-36 pb-12 bg-main min-h-screen">
                 <FormHeading/>
                 <div className="">
                     <div className="flex-1">
