@@ -12,9 +12,10 @@ interface questionBoxType{
     duplicateQuestion: (id: number) => void
     selectQuestion: (q: QuestionType) => void
     handleQuestionChange: (id:number, value:string) => void
+    showImgModal: (display: boolean) => void
 }
 
-export default function QuestionBox({content, removeQuestion, duplicateQuestion, selectQuestion, handleQuestionChange}: questionBoxType){
+export default function QuestionBox({content, removeQuestion, duplicateQuestion, selectQuestion, handleQuestionChange, showImgModal}: questionBoxType){
 
     return (
         <QuestionWrapper heading={false}>
@@ -30,7 +31,7 @@ export default function QuestionBox({content, removeQuestion, duplicateQuestion,
                         handleChange={(e:React.ChangeEvent) => handleQuestionChange(content.id, (e.target as HTMLInputElement).value)}
                     />
                 </div>
-                <div className="col-span-1">
+                <div className="col-span-1" onClick={e => showImgModal(true)}>
                     <Icon icon='photo' size="xl"/>
                 </div>
                 <div className="col-span-4">

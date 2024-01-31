@@ -8,7 +8,7 @@ interface DropdownProps{
 }
 
 interface OptionsProps{
-    id: number
+    question: QuestionType
     selectQuestion: (q:QuestionType) => void
     toggleOptions: (e:React.SyntheticEvent) => void
 }
@@ -28,14 +28,14 @@ export default function Dropdown({question, selectQuestion}: DropdownProps){
                 <div className="-mt-2"><Icon icon='sort-down' size="md"/></div>
             </div>
             <div className={`${displayOptions ? 'block': 'hidden'}`}>
-                <DropdownOptions id={question.id} selectQuestion={selectQuestion} toggleOptions={toggleOptions}/>
+                <DropdownOptions question={question} selectQuestion={selectQuestion} toggleOptions={toggleOptions}/>
             </div>
         </div>
         
     )
 }
 
-function DropdownOptions({id, selectQuestion, toggleOptions}: OptionsProps){
+function DropdownOptions({question, selectQuestion, toggleOptions}: OptionsProps){
     return (
         <div style={{top: '2.5rem'}} className={`fixed w-56 cursor-pointer bg-white shadow-md rounded-md z-50`}>
             {
@@ -43,7 +43,7 @@ function DropdownOptions({id, selectQuestion, toggleOptions}: OptionsProps){
                     <ul className="border-b border-gray-300" key={index}>
                         {
                             group.map(option => (
-                                <li onClick={e => {selectQuestion({...option, id}); toggleOptions(e)}} className="my-2 py-1.5 px-4 flex items-center hover:bg-gray-200" key={option.label}>
+                                <li onClick={e => {selectQuestion({...option, id: question.id}); toggleOptions(e)}} className={`my-2 py-1.5 px-4 flex items-center ${question.label === option.label ? 'bg-blue-50' : ''} hover:bg-gray-200`} key={option.label}>
                                     <Icon icon={option.icon} size="2xl"/>
                                     <span className='ml-3 text-sm'>{option.label}</span>
                                 </li>

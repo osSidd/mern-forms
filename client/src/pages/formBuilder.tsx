@@ -12,6 +12,7 @@ import Icon from "../components/icon";
 import Toolbar from "../components/toolbar";
 import Modal from "../components/modal";
 import { debounce } from "../utils/functions";
+import ImgModal from "../components/imgModal";
 
 interface formContentType{
     id: number
@@ -23,6 +24,7 @@ interface formContentType{
 export default function FormBuilder(){
     const [formContent, setFormContent] = useState<formContentType[]>([])
     const [modal, setModal] = useState({display: false, text: ''})
+    const [imgModal, setImgModal] = useState({display: false})
     
     function toggleFormContent(action:string){
         switch(action){
@@ -72,6 +74,10 @@ export default function FormBuilder(){
         })))
     }
 
+    function showImgModal(display=false){
+        setImgModal({display})
+    }
+
     return (
         <>
             <header className=" shadow-md fixed top-0 left-0 w-full bg-white z-10">
@@ -97,6 +103,7 @@ export default function FormBuilder(){
                                 <QuestionBox
                                     key={content.id}
                                     content={content}
+                                    showImgModal={showImgModal}
                                     selectQuestion={selectQuestion}
                                     removeQuestion={removeQuestion}
                                     duplicateQuestion={duplicateQuestion}
@@ -106,10 +113,11 @@ export default function FormBuilder(){
                         }
                     </div>
                     <div style={{top: '25rem'}} className="fixed right-48">
-                        <Toolbar handleClick={toggleFormContent}/>
+                        <Toolbar showImgModal={showImgModal} handleClick={toggleFormContent}/>
                     </div>
                 </div>
                 { createPortal(<Modal modal={modal}/>, document.getElementById('modal') as HTMLElement) }
+                { createPortal(<ImgModal modal={imgModal} showModal={showImgModal}/>, document.getElementById('img-modal') as HTMLElement) }
             </main>
         </>
     )
