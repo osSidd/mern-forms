@@ -1,4 +1,4 @@
-import { getSize } from "../utils/ui"
+import { getSize } from "../../utils/ui"
 
 export default function Icon({icon, size='lg'}){
 

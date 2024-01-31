@@ -1,5 +1,5 @@
 import React from "react"
-import { getSize } from "../utils/ui"
+import { getSize } from "../../utils/ui"
 import { InputBox } from "src/types"
 
 export default function Input({label, type, name, placeholder, textSize, value, handleChange}: InputBox){

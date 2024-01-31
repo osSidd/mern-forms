@@ -4,8 +4,7 @@ import './App.css'
 import { Suspense, lazy } from 'react'
 
 const Home = lazy(() => import('./pages/home'))
-const FormBuilder = lazy(() => import('./pages/formBuilder'))
-const FormRender = lazy(() => import('./pages/formRender'))
+const Questions = lazy(() => import('./pages/questions'))
 
 export default function App(){
   return(
@@ -14,8 +13,7 @@ export default function App(){
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='forms'>
-          <Route index path='questions' element={<FormBuilder/>}/>
-          <Route path='preview' element={<FormRender/>}/>
+          <Route index path='questions' element={<Questions/>}/>
         </Route>
       </Routes>
       </Suspense>
