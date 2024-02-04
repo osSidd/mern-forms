@@ -5,6 +5,8 @@ export default function DropdownOptions():{[index:string]:React.JSX.Element}{
     return {
         'Short answer': <ShortAnswer/>,
         'Paragraph': <Paragraph/>,
+        'Date': <Date/>,
+        'Time': <Time/>
     }
 }
 
@@ -32,6 +34,38 @@ function Paragraph(){
                 type="text"
                 name="paragraph"
                 placeholder="long answer text"
+                value=""
+                textSize="md"
+                handleChange={() =>  {}}
+            />
+        </div>
+    )
+}
+
+function Date(){
+    return (
+        <div>
+            <Input
+                label="Date"
+                type="date"
+                name="date"
+                placeholder="Month, day, year"
+                value=""
+                textSize="md"
+                handleChange={() =>  {}}
+            />
+        </div>
+    )
+}
+
+function Time(){
+    return (
+        <div>
+            <Input
+                label="Time"
+                type="text"
+                name="time"
+                placeholder="Time"
                 value=""
                 textSize="md"
                 handleChange={() =>  {}}
