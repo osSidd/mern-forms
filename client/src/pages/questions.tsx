@@ -6,11 +6,11 @@ import './questions.css'
 
 import Header from "../components/questions/header";
 import FormHeading from "../components/questions/formHeading";
-import QuestionBox from "../components/questions/questionBox";
+import QuestionBox from "../components/questions/questionbox/questionBox";
 import Icon from "../components/questions/icon";
 import Toolbar from "../components/questions/toolbar";
-import Modal from "../components/questions/modal";
-import ImgModal from "../components/questions/imgModal";
+import Modal from "../components/questions/modals/modal";
+import ImgModal from "../components/questions/modals/imgModal";
 import useQuestions from "../hooks/questions/useQuestions";
 
 export default function Questions(){

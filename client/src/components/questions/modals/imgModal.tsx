@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "./icon";
+import Icon from "../icon";
 
 export default function ImgModal({modal, showModal}: {modal: {display: boolean}, showModal: (display: boolean) => void}){
     return (

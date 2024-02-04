@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Icon from "./icon";
+import Icon from "../icon";
 import { QuestionType } from "src/types";
 
 interface DropdownProps{
