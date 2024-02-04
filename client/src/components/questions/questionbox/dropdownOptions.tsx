@@ -6,7 +6,8 @@ export default function DropdownOptions():{[index:string]:React.JSX.Element}{
         'Short answer': <ShortAnswer/>,
         'Paragraph': <Paragraph/>,
         'Date': <Date/>,
-        'Time': <Time/>
+        'Time': <Time/>,
+        'File upload': <File/>,
     }
 }
 
@@ -66,6 +67,22 @@ function Time(){
                 type="text"
                 name="time"
                 placeholder="Time"
+                value=""
+                textSize="md"
+                handleChange={() =>  {}}
+            />
+        </div>
+    )
+}
+
+function File(){
+    return (
+        <div>
+            <Input
+                label="File"
+                type="file"
+                name="file"
+                placeholder="Upload file"
                 value=""
                 textSize="md"
                 handleChange={() =>  {}}
