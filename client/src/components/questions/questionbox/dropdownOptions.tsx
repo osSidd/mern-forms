@@ -10,7 +10,9 @@ export default function DropdownOptions(quesId: number, arr:string[], addOption:
         'Date': <Date/>,
         'Time': <Time/>,
         'File upload': <File/>,
-        'Multiple choice': <Multiple quesId={quesId} arr={arr} addOption={addOption} />
+        'Multiple choice': <Multiple type='radio' quesId={quesId} arr={arr} addOption={addOption}/>,
+        'Checkboxes': <Multiple type='checkbox' quesId={quesId} arr={arr} addOption={addOption}/>,
+        'Dropdown': <Multiple type='dropdown' quesId={quesId} arr={arr} addOption={addOption}/>,
     }
 }
 
