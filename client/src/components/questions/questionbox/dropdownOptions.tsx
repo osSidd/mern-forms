@@ -1,5 +1,6 @@
 import React from "react"
 import Input from "../input"
+import Icon from "../icon"
 
 export default function DropdownOptions():{[index:string]:React.JSX.Element}{
     return {
@@ -13,64 +14,34 @@ export default function DropdownOptions():{[index:string]:React.JSX.Element}{
 
 function ShortAnswer(){
     return (
-        <div>
-            <Input
-                label="short answer"
-                type="text"
-                name="short_answer"
-                placeholder="short answer text"
-                value=""
-                textSize="md"
-                handleChange={() =>  {}}
-            />
+        <div className="border-b border-gray-500 pb-1 mt-4 text-gray-400">
+            <p>Short answer text</p>            
         </div>
     )
 }
 
 function Paragraph(){
     return (
-        <div>
-            <Input
-                label="Paragraph"
-                type="text"
-                name="paragraph"
-                placeholder="long answer text"
-                value=""
-                textSize="md"
-                handleChange={() =>  {}}
-            />
-        </div>
+        <div className="border-b border-gray-500 pb-1 mt-4 text-gray-400">
+            <p>Long answer text</p>            
+        </div> 
     )
 }
 
 function Date(){
     return (
-        <div>
-            <Input
-                label="Date"
-                type="date"
-                name="date"
-                placeholder="Month, day, year"
-                value=""
-                textSize="md"
-                handleChange={() =>  {}}
-            />
+        <div className="border-b border-gray-500 pb-1 mt-4 text-gray-400 w-48 flex items-center justify-between">
+            <p>Month, day, year</p>
+            <span><Icon icon='calendar'/></span>            
         </div>
     )
 }
 
 function Time(){
     return (
-        <div>
-            <Input
-                label="Time"
-                type="text"
-                name="time"
-                placeholder="Time"
-                value=""
-                textSize="md"
-                handleChange={() =>  {}}
-            />
+        <div className="border-b border-gray-500 pb-1 mt-4 text-gray-400 w-48 flex items-center justify-between">
+            <p>Time</p>
+            <span><Icon icon='clock-o'/></span>            
         </div>
     )
 }
