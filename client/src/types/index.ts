@@ -13,3 +13,11 @@ export interface QuestionType{
     label: string
     icon: string
 }
+
+export interface formContentType{
+    id: number
+    label: string
+    icon: string
+    question: string
+    options: {label:string, icon:string, arr: string[]}
+}

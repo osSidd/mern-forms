@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import Divider from "../divider";
 import Dropdown from "./dropdown";
 import Icon from "../icon";
 import Input from "../input";
 import QuestionWrapper from "../questionWrapper";
-import { QuestionType } from "src/types";
+import { QuestionType, formContentType } from "src/types";
 import DropdownOptions from "./dropdownOptions";
 
 interface questionBoxType{
-    content:{id: number, label: string, icon:string, question: string}
+    content: formContentType
     removeQuestion: (id: number) => void
     duplicateQuestion: (id: number) => void
     selectQuestion: (q: QuestionType) => void
     handleQuestionChange: (id:number, value:string) => void
+    addOption:(quesId:number) => void
     showImgModal: (display: boolean) => void
 }
 
-export default function QuestionBox({content, removeQuestion, duplicateQuestion, selectQuestion, handleQuestionChange, showImgModal}: questionBoxType){
-    const optionsObj = DropdownOptions()
+export default function QuestionBox(props: questionBoxType){
+    const {
+        content, 
+        removeQuestion, 
+        duplicateQuestion, 
+        selectQuestion, 
+        handleQuestionChange, 
+        addOption,
+        showImgModal
+    } = props
+    
+    const optionsObj = DropdownOptions(content.id, content.options.arr, addOption)
     return (
         <QuestionWrapper heading={false}>
             <div className="grid grid-cols-12 gap-x-4 items-center mb-2">
@@ -40,7 +51,7 @@ export default function QuestionBox({content, removeQuestion, duplicateQuestion,
                 </div>
             </div>
             <div className="w-8/12">
-                {optionsObj[content.label]}
+                {optionsObj[content.options.label]}
             </div>
             <div className="mt-8">
                 <Divider/>

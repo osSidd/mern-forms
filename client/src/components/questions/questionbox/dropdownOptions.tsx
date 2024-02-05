@@ -1,14 +1,16 @@
 import React from "react"
 import Input from "../input"
 import Icon from "../icon"
+import Multiple from "./multiple"
 
-export default function DropdownOptions():{[index:string]:React.JSX.Element}{
+export default function DropdownOptions(quesId: number, arr:string[], addOption:(quesId:number) => void):{[index:string]:React.JSX.Element}{
     return {
         'Short answer': <ShortAnswer/>,
         'Paragraph': <Paragraph/>,
         'Date': <Date/>,
         'Time': <Time/>,
         'File upload': <File/>,
+        'Multiple choice': <Multiple quesId={quesId} arr={arr} addOption={addOption} />
     }
 }
 

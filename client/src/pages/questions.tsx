@@ -23,6 +23,7 @@ export default function Questions(){
         removeQuestion,
         toggleFormContent,
         selectQuestion,
+        addOption,
         handleQuestionChange,
         showImgModal,   
     } = useQuestions()
@@ -51,6 +52,7 @@ export default function Questions(){
                                     removeQuestion={removeQuestion}
                                     duplicateQuestion={duplicateQuestion}
                                     handleQuestionChange={handleQuestionChange}
+                                    addOption={addOption}
                                 />
                             ))
                         }

@@ -1,15 +1,8 @@
 import { useState } from "react"
 import { debounce } from "../../utils/functions"
-import { QuestionType } from "../../types"
+import { QuestionType, formContentType } from "../../types"
 
 export default function useQuestions(){
-    
-    interface formContentType{
-        id: number
-        label: string
-        icon: string
-        question: string
-    }
 
     const [formContent, setFormContent] = useState<formContentType[]>([])
     const [modal, setModal] = useState({display: false, text: ''})
@@ -35,7 +28,13 @@ export default function useQuestions(){
     }
 
     function addQuestion(){
-        setFormContent(prev => ([...prev, {id: prev.length, question: '', label: 'Multiple choice', icon: 'dot-circle-o'}]))
+        setFormContent(prev => ([...prev, {
+            id: prev.length, 
+            question: '', 
+            label: 'Multiple choice', 
+            icon: 'dot-circle-o',
+            options:{label:'Multiple choice', icon:'dot-circle-o', arr:['Option']}
+        }]))
     }
 
     function removeQuestion(id: number){
@@ -48,8 +47,16 @@ export default function useQuestions(){
         setFormContent(prev => prev.map(item => (
             {
                 ...item, 
-                label: option.id === item.id ? option.label : item.label,
-                icon: option.id === item.id ? option.icon : item.icon
+                options: option.id === item.id ? {...item.options, label:option.label, icon: option.icon} : item.options
+            }
+        )))
+    }
+
+    function addOption(quesId:number){
+        setFormContent(prev => prev.map(item => (
+            {
+                ...item,
+                options: quesId === item.id ? {...item.options, arr: [...item.options.arr, 'Option']} : item.options
             }
         )))
     }
@@ -74,6 +81,7 @@ export default function useQuestions(){
         removeQuestion,
         selectQuestion,
         handleQuestionChange,
+        addOption,
         showImgModal,
     }
 }

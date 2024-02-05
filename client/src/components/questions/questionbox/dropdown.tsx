@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Icon from "../icon";
-import { QuestionType } from "src/types";
+import { QuestionType, formContentType } from "src/types";
 
 interface DropdownProps{
-    question: QuestionType, 
+    question: formContentType, 
     selectQuestion: (q:QuestionType) => void
 }
 
 interface OptionsProps{
-    question: QuestionType
+    question: formContentType
     selectQuestion: (q:QuestionType) => void
     toggleOptions: (e:React.SyntheticEvent) => void
 }
@@ -23,15 +23,14 @@ export default function Dropdown({question, selectQuestion}: DropdownProps){
     return(
         <div className="" tabIndex={-1} onBlur={() => setDisplayOptions(false)}>
             <div onClick={toggleOptions} className="border border-gray-300 rounded-md py-3 px-4 flex items-center cursor-pointer">
-                <div className="mr-2"><Icon icon={question.icon} size="2xl"/></div>
-                <div className="mr-auto">{question.label}</div>
+                <div className="mr-2"><Icon icon={question.options.icon} size="2xl"/></div>
+                <div className="mr-auto">{question.options.label}</div>
                 <div className="-mt-2"><Icon icon='sort-down' size="md"/></div>
             </div>
             <div className={`${displayOptions ? 'block': 'hidden'}`}>
                 <DropdownOptions question={question} selectQuestion={selectQuestion} toggleOptions={toggleOptions}/>
             </div>
         </div>
-        
     )
 }
 
@@ -43,7 +42,7 @@ function DropdownOptions({question, selectQuestion, toggleOptions}: OptionsProps
                     <ul className="border-b border-gray-300" key={index}>
                         {
                             group.map(option => (
-                                <li onClick={e => {selectQuestion({...option, id: question.id}); toggleOptions(e)}} className={`my-2 py-1.5 px-4 flex items-center ${question.label === option.label ? 'bg-blue-50' : ''} hover:bg-gray-200`} key={option.label}>
+                                <li onClick={e => {selectQuestion({...option, id: question.id}); toggleOptions(e)}} className={`my-2 py-1.5 px-4 flex items-center ${question.options.label === option.label ? 'bg-blue-50' : ''} hover:bg-gray-200`} key={option.label}>
                                     <Icon icon={option.icon} size="2xl"/>
                                     <span className='ml-3 text-sm'>{option.label}</span>
                                 </li>
