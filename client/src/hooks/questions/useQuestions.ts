@@ -64,9 +64,30 @@ export default function useQuestions(){
             let arr = item.options.arr
             return {
                 ...item,
-                options: quesId === item.id ? {...item.options, arr: [...arr, 'Option '+(arr.length+1)]} : item.options
+                options: quesId === item.id ? {...item.options, arr: [...arr, 'Option '+ (arr.length+1)]} : item.options
             }
         }))
+    }
+
+    function removeOption(quesId:number, optionId:number){
+        setFormContent(prev => prev.map(item => {
+            let arr = item.options.arr
+            return {
+                ...item,
+                options: quesId === item.id ? {...item.options, arr: filterOptions(arr, optionId)} : item.options
+            }
+        }))
+    }
+
+    function filterOptions(arr: string[], optionId:number){
+        let temp: string[] = []
+        for(let i in arr){
+            if(parseInt(i) !== optionId){
+                if(arr[i].split(' ')[0] === 'Option') temp.push('Option ' + (temp.length+1))
+                else temp.push(arr[i])
+            }
+        }
+        return temp
     }
 
     function handleOptionChange(quesId:number, optionId:number, value:string){
@@ -93,6 +114,7 @@ export default function useQuestions(){
         selectQuestion,
         handleQuestionChange,
         addOption,
+        removeOption,
         handleOptionChange,
         showImgModal,
     }
