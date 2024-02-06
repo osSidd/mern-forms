@@ -33,7 +33,7 @@ export default function useQuestions(){
             question: '', 
             label: 'Multiple choice', 
             icon: 'dot-circle-o',
-            options:{label:'Multiple choice', icon:'dot-circle-o', arr:['Option']}
+            options:{label:'Multiple choice', icon:'dot-circle-o', arr:['Option 1']}
         }]))
     }
 
@@ -52,20 +52,31 @@ export default function useQuestions(){
         )))
     }
 
-    function addOption(quesId:number){
-        setFormContent(prev => prev.map(item => (
-            {
-                ...item,
-                options: quesId === item.id ? {...item.options, arr: [...item.options.arr, 'Option']} : item.options
-            }
-        )))
-    }
-
     function handleQuestionChange(id:number, value:string){
         setFormContent(prev => prev.map(ques => ({
             ...ques,
             question: id === ques.id ? value : ques.question
         })))
+    }
+
+    function addOption(quesId:number){
+        setFormContent(prev => prev.map(item => {
+            let arr = item.options.arr
+            return {
+                ...item,
+                options: quesId === item.id ? {...item.options, arr: [...arr, 'Option '+(arr.length+1)]} : item.options
+            }
+        }))
+    }
+
+    function handleOptionChange(quesId:number, optionId:number, value:string){
+        setFormContent(prev => prev.map(item => {
+            let optionArr = item.options.arr
+            return {
+                ...item,
+                options: quesId === item.id ? {...item.options, arr: optionArr.map((opt, index) => (index === optionId ? value : opt))} : item.options
+            }
+        }))
     }
 
     function showImgModal(display=false){
@@ -82,6 +93,7 @@ export default function useQuestions(){
         selectQuestion,
         handleQuestionChange,
         addOption,
+        handleOptionChange,
         showImgModal,
     }
 }

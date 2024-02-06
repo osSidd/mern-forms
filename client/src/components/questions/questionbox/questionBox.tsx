@@ -14,6 +14,7 @@ interface questionBoxType{
     selectQuestion: (q: QuestionType) => void
     handleQuestionChange: (id:number, value:string) => void
     addOption:(quesId:number) => void
+    handleOptionChange: (quesId:number, optionId:number, value:string) => void
     showImgModal: (display: boolean) => void
 }
 
@@ -25,10 +26,11 @@ export default function QuestionBox(props: questionBoxType){
         selectQuestion, 
         handleQuestionChange, 
         addOption,
+        handleOptionChange,
         showImgModal
     } = props
     
-    const optionsObj = DropdownOptions(content.id, content.options.arr, addOption)
+    const optionsObj = DropdownOptions(content.id, content.options.arr, addOption, handleOptionChange)
     return (
         <QuestionWrapper heading={false}>
             <div className="grid grid-cols-12 gap-x-4 items-center mb-2">

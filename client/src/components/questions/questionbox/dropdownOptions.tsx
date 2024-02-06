@@ -3,16 +3,16 @@ import Input from "../input"
 import Icon from "../icon"
 import Multiple from "./multiple"
 
-export default function DropdownOptions(quesId: number, arr:string[], addOption:(quesId:number) => void):{[index:string]:React.JSX.Element}{
+export default function DropdownOptions(quesId: number, arr:string[], addOption:(quesId:number) => void, handleOptionChange: (quesId:number, optionId:number, value:string) => void):{[index:string]:React.JSX.Element}{
     return {
         'Short answer': <ShortAnswer/>,
         'Paragraph': <Paragraph/>,
         'Date': <Date/>,
         'Time': <Time/>,
         'File upload': <File/>,
-        'Multiple choice': <Multiple type='radio' quesId={quesId} arr={arr} addOption={addOption}/>,
-        'Checkboxes': <Multiple type='checkbox' quesId={quesId} arr={arr} addOption={addOption}/>,
-        'Dropdown': <Multiple type='dropdown' quesId={quesId} arr={arr} addOption={addOption}/>,
+        'Multiple choice': <Multiple type='radio' quesId={quesId} arr={arr} addOption={addOption} handleOptionChange={handleOptionChange}/>,
+        'Checkboxes': <Multiple type='checkbox' quesId={quesId} arr={arr} addOption={addOption} handleOptionChange={handleOptionChange}/>,
+        'Dropdown': <Multiple type='dropdown' quesId={quesId} arr={arr} addOption={addOption} handleOptionChange={handleOptionChange}/>,
     }
 }
 

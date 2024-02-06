@@ -1,8 +1,18 @@
 import React from "react"
 import Icon from "../icon"
+import Input from "../input"
 
-export default function Multiple({type, quesId, arr, addOption}:{type:string, quesId:number, arr:string[], addOption:(quesId:number) => void}){
+interface MultipleProps{
+    type:string
+    quesId:number
+    arr:string[]
+    addOption:(quesId:number) => void
+    handleOptionChange: (quesId:number, optionId:number, value:string) => void
+}
 
+export default function Multiple(props:MultipleProps){
+    const {type, quesId, arr, addOption, handleOptionChange} = props
+    
     let icon : string | undefined
     switch(type){
         case 'radio':
@@ -20,8 +30,16 @@ export default function Multiple({type, quesId, arr, addOption}:{type:string, qu
             {
                 arr.map((option, index) => (
                     <div key={index} className="flex items-center mt-2">
-                        <span>{icon ? <Icon size="2xl" icon={icon}/> : `${index+1}.`}</span>
-                        <span className="ml-4">{option} {index+1}</span>
+                        <span className="mr-4">{icon ? <Icon size="2xl" icon={icon}/> : `${index+1}.`}</span>
+                        <Input 
+                            type="text" 
+                            textSize="md" 
+                            name="option" 
+                            label="option" 
+                            value={option} 
+                            handleChange={(e:React.ChangeEvent) => handleOptionChange(quesId, index, (e.target as HTMLInputElement).value)} 
+                            placeholder={`Option ${index+1}`}
+                        />
                     </div>
                 ))
             }
