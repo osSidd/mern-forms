@@ -3,14 +3,29 @@ import Input from "../input"
 import Icon from "../icon"
 import Multiple from "./multiple"
 
-export default function DropdownOptions(quesId: number, arr:string[], addOption:(quesId:number) => void, removeOption: (quesId:number, optionId:number) => void, handleOptionChange: (quesId:number, optionId:number, value:string) => void):{[index:string]:React.JSX.Element}{
+interface DropdownOptionsProps{
+    quesId: number
+    arr:string[]
+    addOption:(quesId:number) => void
+    removeOption: (quesId:number, optionId:number) => void
+    handleOptionChange: (quesId:number, optionId:number, value:string) => void
+}
+
+export default function DropdownOptions(obj:DropdownOptionsProps):{[index:string]:React.JSX.Element}{
+    const {
+        quesId, 
+        arr, 
+        addOption, 
+        removeOption, 
+        handleOptionChange
+    } = obj
     return {
-        'Short answer': <ShortAnswer/>,
-        'Paragraph': <Paragraph/>,
-        'Date': <Date/>,
-        'Time': <Time/>,
+        'Short answer': <Answer type="Short answer type"/>,
+        'Paragraph': <Answer type="Long answer type"/>,
+        'Date': <DateTime type="Month, day, year" icon="calendar"/>,
+        'Time': <DateTime type="Time" icon="clock-o"/>,
         'File upload': <File/>,
-        'Multiple choice': <Multiple 
+        'Multiple choice':  <Multiple 
                                 type='radio' 
                                 quesId={quesId} 
                                 arr={arr} 
@@ -18,14 +33,14 @@ export default function DropdownOptions(quesId: number, arr:string[], addOption:
                                 removeOption={removeOption} 
                                 handleOptionChange={handleOptionChange}
                             />,
-        'Checkboxes':  <Multiple 
+        'Checkboxes':   <Multiple 
                             type='checkbox' 
                             quesId={quesId} 
                             arr={arr} 
                             addOption={addOption} 
                             removeOption={removeOption}
                             handleOptionChange={handleOptionChange}
-                       />,
+                        />,
         'Dropdown': <Multiple 
                         type='dropdown' 
                         quesId={quesId} 
@@ -37,36 +52,19 @@ export default function DropdownOptions(quesId: number, arr:string[], addOption:
     }
 }
 
-function ShortAnswer(){
+function Answer({type}:{type:string}){
     return (
         <div className="border-b border-gray-500 pb-1 mt-4 text-gray-400">
-            <p>Short answer text</p>            
+            <p>{type}</p>            
         </div>
     )
 }
 
-function Paragraph(){
-    return (
-        <div className="border-b border-gray-500 pb-1 mt-4 text-gray-400">
-            <p>Long answer text</p>            
-        </div> 
-    )
-}
-
-function Date(){
+function DateTime({type, icon}:{type:string, icon:string}){
     return (
         <div className="border-b border-gray-500 pb-1 mt-4 text-gray-400 w-48 flex items-center justify-between">
-            <p>Month, day, year</p>
-            <span><Icon icon='calendar'/></span>            
-        </div>
-    )
-}
-
-function Time(){
-    return (
-        <div className="border-b border-gray-500 pb-1 mt-4 text-gray-400 w-48 flex items-center justify-between">
-            <p>Time</p>
-            <span><Icon icon='clock-o'/></span>            
+            <p>{type}</p>
+            <span><Icon icon={icon}/></span>            
         </div>
     )
 }

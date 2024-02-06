@@ -32,7 +32,7 @@ export default function QuestionBox(props: questionBoxType){
         showImgModal
     } = props
     
-    const optionsObj = DropdownOptions(content.id, content.options.arr, addOption, removeOption, handleOptionChange)
+    const optionsObj = DropdownOptions({quesId:content.id, arr:content.options.arr, addOption, removeOption, handleOptionChange})
     return (
         <QuestionWrapper heading={false}>
             <div className="grid grid-cols-12 gap-x-4 items-center mb-2">
