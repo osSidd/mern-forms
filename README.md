@@ -38,6 +38,9 @@ npm run server
 - Using FormData on client side to handle multi-part form data
 - Using portals to render modal elements
 
+## Challenges
+- Prop drilling
+
 ## Todos
 - [ ] Migrate app to next.js
 - [x] Add typescript support

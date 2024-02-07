@@ -11,6 +11,8 @@ export default function FormHeading(){
                 placeholder='Form title'
                 label='form title'
                 textSize='3xl'
+                value=""
+                handleChange={() => {}}
             />
             <Input
                 name='description'
@@ -18,6 +20,8 @@ export default function FormHeading(){
                 placeholder='Form description'
                 label='form description'
                 textSize='lg'
+                value=""
+                handleChange={() => {}}
             />
         </QuestionWrapper>
     )
