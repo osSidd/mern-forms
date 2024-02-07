@@ -1,18 +1,30 @@
 import { useState } from "react"
 import { debounce } from "../../utils/functions"
-import { QuestionType, formContentType } from "../../types"
+import { QuestionType, formContentType, HeadingDescription, FormQuestion } from "../../types"
 
 export default function useQuestions(){
 
-    const [formContent, setFormContent] = useState<formContentType[]>([])
+    const [formContent, setFormContent] = useState<FormQuestion[]>([])
     const [modal, setModal] = useState({display: false, text: ''})
     const [imgModal, setImgModal] = useState({display: false})
+
+    function getQuestionType(type: string, id: number){
+        switch(type){
+            case 'QUESTION':
+                return {
+                    id, 
+                    type: 'QUESTION',
+                    question: '', 
+                    options:{label:'Multiple choice', icon:'dot-circle-o', arr:['Option 1']}
+                }
+        }
+    }
     
     function toggleFormContent(action:string){
         switch(action){
             case 'ADD_QUESTION':
-                addQuestion()
-                return
+                addQuestion('QUESTION')
+                return 
         }
     }
 
@@ -27,14 +39,11 @@ export default function useQuestions(){
         })
     }
 
-    function addQuestion(){
-        setFormContent(prev => ([...prev, {
-            id: prev.length, 
-            question: '', 
-            label: 'Multiple choice', 
-            icon: 'dot-circle-o',
-            options:{label:'Multiple choice', icon:'dot-circle-o', arr:['Option 1']}
-        }]))
+    function addQuestion(type:string){
+        setFormContent(prev => {
+            let question:formContentType = getQuestionType(type, prev.length)!
+            return [...prev, question]
+        })
     }
 
     function removeQuestion(id: number){
@@ -44,38 +53,50 @@ export default function useQuestions(){
     }
 
     function selectQuestion(option: QuestionType){
-        setFormContent(prev => prev.map(item => (
-            {
+        setFormContent((prev) => prev.map(item => {
+            if('options' in item)
+            return {
                 ...item, 
                 options: option.id === item.id ? {...item.options, label:option.label, icon: option.icon} : item.options
             }
-        )))
+            return item
+        }))
     }
 
     function handleQuestionChange(id:number, value:string){
-        setFormContent(prev => prev.map(ques => ({
-            ...ques,
-            question: id === ques.id ? value : ques.question
-        })))
+        setFormContent(prev => prev.map(ques => {
+            if('question' in ques)
+            return {
+                ...ques,
+                question: id === ques.id ? value : ques.question
+            }
+            return ques
+        }))
     }
 
     function addOption(quesId:number){
         setFormContent(prev => prev.map(item => {
-            let arr = item.options.arr
-            return {
-                ...item,
-                options: quesId === item.id ? {...item.options, arr: [...arr, 'Option '+ (arr.length+1)]} : item.options
+            if('options' in item){
+                let arr = item.options.arr
+                return {
+                    ...item,
+                    options: quesId === item.id ? {...item.options, arr: [...arr, 'Option '+ (arr.length+1)]} : item.options
+                }
             }
+            return item
         }))
     }
 
     function removeOption(quesId:number, optionId:number){
         setFormContent(prev => prev.map(item => {
-            let arr = item.options.arr
-            return {
-                ...item,
-                options: quesId === item.id ? {...item.options, arr: filterOptions(arr, optionId)} : item.options
+            if('options' in item){
+                let arr = item.options.arr
+                return {
+                    ...item,
+                    options: quesId === item.id ? {...item.options, arr: filterOptions(arr, optionId)} : item.options
+                }
             }
+            return item
         }))
     }
 
@@ -92,11 +113,14 @@ export default function useQuestions(){
 
     function handleOptionChange(quesId:number, optionId:number, value:string){
         setFormContent(prev => prev.map(item => {
-            let optionArr = item.options.arr
-            return {
-                ...item,
-                options: quesId === item.id ? {...item.options, arr: optionArr.map((opt, index) => (index === optionId ? value : opt))} : item.options
+            if('options' in item){
+                let optionArr = item.options.arr
+                return {
+                    ...item,
+                    options: quesId === item.id ? {...item.options, arr: optionArr.map((opt, index) => (index === optionId ? value : opt))} : item.options
+                }
             }
+            return item
         }))
     }
 

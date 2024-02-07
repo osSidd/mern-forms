@@ -14,10 +14,18 @@ export interface QuestionType{
     icon: string
 }
 
+export interface HeadingDescription{
+    id: number
+    type: string
+    title: string
+    description: string
+}
+
 export interface formContentType{
     id: number
-    label: string
-    icon: string
+    type: string
     question: string
     options: {label:string, icon:string, arr: string[]}
 }
+
+export type FormQuestion = formContentType | HeadingDescription
