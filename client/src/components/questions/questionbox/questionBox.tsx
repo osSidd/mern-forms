@@ -60,7 +60,7 @@ export default function QuestionBox(props: questionBoxType){
             <div className="mt-8">
                 <Divider/>
             </div>
-            <div className="flex items-center justify-between w-2/12 ml-auto mr-8 mt-4">
+            <div className="flex items-center justify-between w-6/12 md:w-4/12 lg:w-2/12 ml-auto mr-8 mt-4">
                 <span onClick={e => duplicateQuestion(content.id)}>
                     <Icon icon='clone' size="xl"/>
                 </span>
