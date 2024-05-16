@@ -40,7 +40,7 @@ export default function Questions(){
                     <CustomNavLink navLabel="Settings" path='/forms/settings' disabled={true}/>
                 </div>
             </header>
-            <main className="pt-36 pb-12 bg-main min-h-screen">
+            <main className="pt-36 pb-24 md:pb-12 bg-main min-h-screen">
                 <FormHeading/>
                 <div className="">
                     <div className="flex-1">
@@ -61,7 +61,7 @@ export default function Questions(){
                             ))
                         }
                     </div>
-                    <div style={{top: '25rem'}} className="fixed right-48">
+                    <div className="fixed bottom-4 md:bottom-auto md:top-2/4 right-8 left-8 md:left-auto md:right-16 lg:right-48">
                         <Toolbar showImgModal={showImgModal} handleClick={toggleFormContent}/>
                     </div>
                 </div>

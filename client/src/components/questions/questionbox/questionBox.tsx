@@ -35,8 +35,8 @@ export default function QuestionBox(props: questionBoxType){
     const optionsObj = DropdownOptions({quesId:content.id, arr:content.options.arr, addOption, removeOption, handleOptionChange})
     return (
         <QuestionWrapper heading={false}>
-            <div className="grid grid-cols-12 gap-x-4 items-center mb-2">
-                <div className="col-start-1 col-span-7">
+            <div className="grid grid-cols-12 gap-y-4 lg:gap-y-0 lg:gap-x-4 items-center mb-6 lg:mb-2">
+                <div className="col-start-1 col-span-12 lg:col-span-7">
                     <Input
                         label="question1"
                         type='text'
@@ -47,10 +47,10 @@ export default function QuestionBox(props: questionBoxType){
                         handleChange={(e:React.ChangeEvent) => handleQuestionChange(content.id, (e.target as HTMLInputElement).value)}
                     />
                 </div>
-                <div className="col-span-1" onClick={e => showImgModal(true)}>
+                <div className="col-span-2" onClick={e => showImgModal(true)}>
                     <Icon icon='photo' size="xl"/>
                 </div>
-                <div className="col-span-4">
+                <div className="col-span-9 md:col-span-6 lg:col-span-4">
                     <Dropdown question={content} selectQuestion={selectQuestion}/>
                 </div>
             </div>
