@@ -1,4 +1,4 @@
-# Form Builder
+# Mern Forms
 
 A form builder using MERN stack. Features a variety of question types like categorize, cloze, comprehension and more.
 

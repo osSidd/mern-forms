@@ -47,7 +47,7 @@ export default function QuestionBox(props: questionBoxType){
                         handleChange={(e:React.ChangeEvent) => handleQuestionChange(content.id, (e.target as HTMLInputElement).value)}
                     />
                 </div>
-                <div className="col-span-2" onClick={e => showImgModal(true)}>
+                <div className="col-span-2 lg:col-span-1" onClick={e => showImgModal(true)}>
                     <Icon icon='photo' size="xl"/>
                 </div>
                 <div className="col-span-9 md:col-span-6 lg:col-span-4">
